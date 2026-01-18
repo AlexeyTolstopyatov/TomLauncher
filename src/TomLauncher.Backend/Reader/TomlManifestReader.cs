@@ -6,12 +6,12 @@ namespace TomLauncher.Backend.Reader;
 
 public class TomlManifestReader(LoaderType type) : IManifestReader
 {
-    public ManifestGenerals GetManifestGenerals(Stream stream)
+    public ManifestGenerals Read(Stream stream)
     {
         var generals = new ManifestGenerals
         {
             LoaderType = type,
-            Dependencies = new Dictionary<string, List<Dependancy>>(),
+            Dependencies = new Dictionary<string, List<ForeignArchiveData>>(),
         };
 
         try
@@ -98,7 +98,7 @@ public class TomlManifestReader(LoaderType type) : IManifestReader
         return match.Success ? match.Groups[1].Value : "0";
     }
     
-    private void ExtractDependencies(TomlTable model, Dictionary<string, List<Dependancy>> dependencies)
+    private void ExtractDependencies(TomlTable model, Dictionary<string, List<ForeignArchiveData>> dependencies)
     {
         if (!model.TryGetValue("dependencies", out var d)) return;
         
@@ -108,14 +108,14 @@ public class TomlManifestReader(LoaderType type) : IManifestReader
             if (depsTable[depKey] is not TomlTableArray depArray) 
                 continue;
             
-            var depList = new List<Dependancy>();
+            var depList = new List<ForeignArchiveData>();
             foreach (var dep in depArray)
             {
                 var modId = GetStringValue(dep, "modId");
                 var versionRange = GetStringValue(dep, "versionRange");
                 if (modId != null)
                 {
-                    depList.Add(new Dependancy(modId, Version.FromString(ExtractVersion(versionRange!))));
+                    depList.Add(new ForeignArchiveData(modId, Version.FromString(ExtractVersion(versionRange!))));
                 }
             }
             dependencies[depKey] = depList;

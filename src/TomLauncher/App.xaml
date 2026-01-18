@@ -3,13 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TomLauncher"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:mica="clr-namespace:MicaWPF.Styles;assembly=MicaWPF"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <mica:ControlsDictionary/>
-                <mica:ThemeDictionary DesignModeTheme="Light" Theme="Auto"/>
                 <ui:ControlsDictionary/>
                 <ui:ThemesDictionary Theme="Unknown"/>
                 <ResourceDictionary Source="Culture/Russian.xaml"/>

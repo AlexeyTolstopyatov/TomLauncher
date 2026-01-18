@@ -18,7 +18,7 @@ namespace TomLauncher.ViewModel.Pages;
 /// </summary>
 public class EditorViewModel
 {
-    private ModPackBuilder? _builder;
+    private PackageBuilder? _builder;
     public EditorViewModel()
     {
         Model = new EditorPageModel
@@ -46,8 +46,6 @@ public class EditorViewModel
     {
         Model.IsExportEnabled = false;
         
-        // Get settings file right now
-        
     }
 
     private void Explorer(object? _)
@@ -67,7 +65,7 @@ public class EditorViewModel
         Model.PackageOpened = Visibility.Visible;
         Model.Package = vm.Model.ToPackageData;
 
-        _builder = new ModPackBuilder(vm.Model.Path!, vm.Model.Name!, false);
+        _builder = new PackageBuilder(vm.Model.Path!, vm.Model.Name!, false);
             
         _builder.Write(Model.Package);
     }
@@ -94,7 +92,7 @@ public class EditorViewModel
         }
         
         // Fill the card from header.toml
-        _builder = new ModPackBuilder(dialog.FolderName);
+        _builder = new PackageBuilder(dialog.FolderName);
         Model.Package = _builder.Read();
         // Scan nested mods
         foreach (var mod in Directory.EnumerateFiles(_builder.Mods))
@@ -126,7 +124,7 @@ public class EditorViewModel
     
     private void Include(string? parameter)
     {
-        var kind = Enum.Parse<ModPackBuilder.ArtifactKind>(parameter!);
+        var kind = Enum.Parse<PackageBuilder.ArtifactKind>(parameter!);
         var dialog = new OpenFileDialog
         {
             Multiselect = true,
@@ -140,21 +138,21 @@ public class EditorViewModel
             // unoptimized
             switch (kind)
             {
-                case ModPackBuilder.ArtifactKind.Mod:
+                case PackageBuilder.ArtifactKind.Mod:
                     if (!Model.Package!.Mods.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
                     {
                         Model.Package?.Mods.Add(_builder?.GetMod(item, Model.Package.Loader!.Type)!);
                         _builder?.Include(item, kind);
                     }
                     break;
-                case ModPackBuilder.ArtifactKind.Resource:
+                case PackageBuilder.ArtifactKind.Resource:
                     if (!Model.Package!.Resources.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
                     {
                         Model.Package?.Resources.Add(_builder?.GetResource(item)!);
                         _builder?.Include(item, kind);
                     }
                     break;
-                case ModPackBuilder.ArtifactKind.Shaders:
+                case PackageBuilder.ArtifactKind.Shaders:
                     if (!Model.Package!.Mods.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
                     {
                         Model.Package?.Shaders.Add(_builder?.GetShaders(item)!);

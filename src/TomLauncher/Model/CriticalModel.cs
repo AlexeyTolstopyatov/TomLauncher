@@ -4,6 +4,22 @@ namespace TomLauncher.Model;
 
 public class CriticalModel
 {
-    public FileInfo? CrashInfo { get; set; }
-    public string? CrashLog { get; set; }
+    /// <summary>
+    /// Smart pointer to the crach log
+    /// Not updates.
+    /// </summary>
+    public FileInfo? CrashInfo
+    {
+        get; 
+        set;
+    }
+    /// <summary>
+    /// Smart pointer to the file contents
+    /// Not updates.
+    /// </summary>
+    public string? CrashLog
+    {
+        get; 
+        set;
+    }
 }

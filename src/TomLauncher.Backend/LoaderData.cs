@@ -2,7 +2,11 @@
 
 public class LoaderData : Version
 {
-    public LoaderType Type { get; set; }
+    public LoaderType Type
+    {
+        get; 
+        set;
+    }
 
     public LoaderData(LoaderType type, string? version)
     {

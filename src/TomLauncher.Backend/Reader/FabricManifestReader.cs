@@ -5,13 +5,13 @@ namespace TomLauncher.Backend.Reader;
 
 public class FabricManifestReader(LoaderType type = LoaderType.Fabric) : IManifestReader
 {
-    public ManifestGenerals GetManifestGenerals(Stream stream)
+    public ManifestGenerals Read(Stream stream)
     {
         var generals = new ManifestGenerals
         {
             LoaderType = type,
             Api = type.ToString(),
-            Dependencies = new Dictionary<string, List<Dependancy>>()
+            Dependencies = new Dictionary<string, List<ForeignArchiveData>>()
         };
         
         try
@@ -87,7 +87,7 @@ public class FabricManifestReader(LoaderType type = LoaderType.Fabric) : IManife
             : "0";
     }
     
-    private void ExtractDependencies(JsonElement root, Dictionary<string, List<Dependancy>> dependencies)
+    private void ExtractDependencies(JsonElement root, Dictionary<string, List<ForeignArchiveData>> dependencies)
     {
         var depSections = new[]
         {
@@ -104,14 +104,14 @@ public class FabricManifestReader(LoaderType type = LoaderType.Fabric) : IManife
             if (!root.TryGetProperty(section, out var deps)) 
                 continue;
             
-            var depList = new List<Dependancy>();
+            var depList = new List<ForeignArchiveData>();
 
             if (deps.ValueKind == JsonValueKind.Object)
             {
                 var list = deps.EnumerateObject().ToList();
                 depList
                     .AddRange(list
-                        .Select(dep => new Dependancy(dep.Name, Version.FromString(ExtractVersion(dep.Value.GetString()!)))));
+                        .Select(dep => new ForeignArchiveData(dep.Name, Version.FromString(ExtractVersion(dep.Value.GetString()!)))));
             }
             // case JsonValueKind.Array:
             //     depList.AddRange(deps

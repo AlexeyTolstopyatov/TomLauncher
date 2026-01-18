@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace TomLauncher.ViewModel;
 
+/// <summary>
+/// Main implemented trigger setup.
+/// </summary>
 public class NotifyPropertyChanged : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;

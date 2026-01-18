@@ -96,4 +96,27 @@
     </v:String>
     <v:String x:Key="CwCard">Crash Log</v:String>
     
+    <!-- First Window -->
+    <v:String x:Key="FstWelcomeText">
+        It seems, you're running at first time.
+        Let's set-up critically important application variables.
+        Without them application will be work incorrectly and throw
+        unexpected errors
+    </v:String>
+    
+    <v:String x:Key="FstHelpText">
+        Using this application, you're explicitly use
+        installed game data, e.g. "Game Directory" or nested
+        "Mods" and "ResourcePacks" directories.
+        You must to know "Where the game is located?"
+        Also, using this application for mod-compatibility check,
+        you are implicitly extract mod data in memory.
+        When mod-compatibility check is done - extracted mod data release from memory.
+    </v:String>
+    
+    <v:String x:Key="FstGameLocation">Set the Game location</v:String>
+    <v:String x:Key="FstGameLocationTooltip">
+        In most cases, it locates in User temporary data, e.g. "%appdata%/.minecraft".
+    </v:String>
+    <v:String x:Key="FstLanguageList">Choose the application language</v:String>
 </ResourceDictionary>

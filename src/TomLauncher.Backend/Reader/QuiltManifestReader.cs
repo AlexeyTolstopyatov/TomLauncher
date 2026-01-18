@@ -5,13 +5,13 @@ namespace TomLauncher.Backend.Reader;
 
 public class QuiltManifestReader(LoaderType type = LoaderType.Quilt) : IManifestReader
 {
-    public ManifestGenerals GetManifestGenerals(Stream stream)
+    public ManifestGenerals Read(Stream stream)
     {
         var generals = new ManifestGenerals
         {
             LoaderType = type,
             Api = type.ToString(),
-            Dependencies = new Dictionary<string, List<Dependancy>>()
+            Dependencies = new Dictionary<string, List<ForeignArchiveData>>()
         };
         
         try
@@ -79,7 +79,7 @@ public class QuiltManifestReader(LoaderType type = LoaderType.Quilt) : IManifest
             @"(\d+\.\d+(?:\.\d+)?)");
         return match.Success ? match.Groups[1].Value : "0";
     }
-    private void ExtractDependencies(JsonElement root, Dictionary<string, List<Dependancy>> dependencies)
+    private void ExtractDependencies(JsonElement root, Dictionary<string, List<ForeignArchiveData>> dependencies)
     {
         var depSections = new[]
         {
@@ -96,7 +96,7 @@ public class QuiltManifestReader(LoaderType type = LoaderType.Quilt) : IManifest
             if (!root.TryGetProperty(section, out var deps)) 
                 continue;
             
-            var depList = new List<Dependancy>();
+            var depList = new List<ForeignArchiveData>();
 
             if (deps.ValueKind == JsonValueKind.Array)
             {
@@ -106,7 +106,7 @@ public class QuiltManifestReader(LoaderType type = LoaderType.Quilt) : IManifest
 
                 depList
                     .AddRange(list
-                    .Select(t => new Dependancy(
+                    .Select(t => new ForeignArchiveData(
                         t.GetProperty("id").GetString()!,
                         Version.FromString(ExtractVersion(t.GetProperty("versions").GetString()!)))));
             }

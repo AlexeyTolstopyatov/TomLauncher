@@ -10,7 +10,6 @@ public class ShadersData
         get; 
         set;
     }
-
     /// <summary>
     /// Sets as True if shaderpack was imported with same name configuration file
     /// </summary>

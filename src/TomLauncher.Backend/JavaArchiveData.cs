@@ -22,14 +22,12 @@ public class JavaArchiveData
         get;
         set;
     }
-
     /// <summary>
     /// Filesystem information of target java archive
     /// Fills automatically and will be used for other fields instances
     /// </summary>
     [DataMember]
     public FileInfo? File { get; set; }
-
     /// <summary>
     /// Title takes from the Manifest and depends on Loader type
     /// </summary>
@@ -38,8 +36,7 @@ public class JavaArchiveData
     {
         get;
         set;
-    } = string.Empty;
-
+    } = "?";
     /// <summary>
     /// Name takes from the Manifest and depends on Loader type
     /// </summary>
@@ -48,8 +45,7 @@ public class JavaArchiveData
     {
         get;
         set;
-    } = string.Empty;
-
+    } = "?";
     /// <summary>
     /// Manifest generals
     /// </summary>
