@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace TomLauncher.Backend;
+﻿namespace TomLauncher.Backend;
 
 public class Settings
 {
