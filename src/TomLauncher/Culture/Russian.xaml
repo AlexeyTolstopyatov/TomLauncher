@@ -1,0 +1,99 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=System.Resources.Writer">
+    <!-- Windows Naming -->
+    <v:String x:Key="WndCritical">Проблема при предыдущем запуске</v:String>
+    <v:String x:Key="WndMain">TomLauncher</v:String>
+    <v:String x:Key="WndNewPack">Создать сборку</v:String>
+    
+    <!--Navigation Tabs-->
+    <v:String x:Key="NvgGamePreview">Папка игры</v:String>
+    <v:String x:Key="NvgPackEditor">Редактор сборки</v:String>
+    <v:String x:Key="NvgModPreview">Свойства мода</v:String>
+    
+    <!-- Editor Page Strings-->
+    <v:String x:Key="EdTitle">Действия сборки</v:String>
+    <v:String x:Key="EdCreatePackage">Создать сборку</v:String>
+    <v:String x:Key="EdOpenPackage">Открыть сборку</v:String>
+    <v:String x:Key="EdExport">Перенести в игру</v:String>
+    <v:String x:Key="EdExportDescription">Удалить предыдущие элементы из игры и копировать текущие</v:String>
+    <v:String x:Key="EdLocationDescription">Открыть текущую сборку в Проводнике</v:String>
+    <v:String x:Key="EdLocation">Расположение папки</v:String>
+    <v:String x:Key="Explorer">Проводник</v:String>
+    <v:String x:Key="EdPack">Сборка</v:String>
+    <v:String x:Key="EdOpenPackageDescription">Открыть существующую TomLauncher сборку</v:String>
+    <v:String x:Key="EdCreatePackageDescription">Создать сборку модов для конкретной версии игры</v:String>
+    <v:String x:Key="EdCacheCardDescription">Эта карточка содержит информацию о несохраненном пакете модов</v:String>
+    <v:String x:Key="EdPackageCardDescription">Эта карточка показывает информацию о текущей открытой сборке</v:String>
+    <v:String x:Key="EdReadOnly">Только для чтения</v:String>
+    <v:String x:Key="EdCheckAll">Проверить</v:String>
+    
+    <!-- Editor Page -> Cache Settings -> Cache-->
+    <v:String x:Key="EdPath">Расположение</v:String>
+    <v:String x:Key="EdSize">Размер</v:String>
+    
+    <!-- Common Terminology -->
+    <v:String x:Key="Name">Имя</v:String>
+    <v:String x:Key="Path">Расположение</v:String>
+    <v:String x:Key="Open">Открыть</v:String>
+    <v:String x:Key="Create">Создать</v:String>
+    <v:String x:Key="Browse">Обзор</v:String>
+    <v:String x:Key="Game">Minecraft</v:String>
+    <v:String x:Key="Version">Версия</v:String>
+    <v:String x:Key="Loader">Ожидаемый загрузчик</v:String>
+    <v:String x:Key="Clear">Очистить</v:String>
+    <v:String x:Key="Cancel">Отмена</v:String>
+    <v:String x:Key="Title">Заголовок</v:String>
+    <v:String x:Key="LoaderVersion">Версия загрузчика</v:String>
+    <v:String x:Key="LoaderString">Провайдер</v:String>
+    <v:String x:Key="GameVersion">Версия игры</v:String>
+    <v:String x:Key="Delete">Удалить</v:String>
+    <v:String x:Key="CreatedAt">Создан</v:String>
+    <v:String x:Key="LastAccess">Последний допуск</v:String>
+    <v:String x:Key="UnixMode">UNIX права доступа</v:String>
+    <v:String x:Key="EmbeddedLoaders">Встроенных загрузчиков</v:String>
+    <v:String x:Key="DependsOn">Зависимости</v:String>
+
+    <!--ModPack manifest-->
+    <v:String x:Key="NewCardTitle">Новая сборка</v:String>
+    <v:String x:Key="NewCardDescription">Заполните все необходимые поля</v:String>
+    <v:String x:Key="NewVersionToolTip">Запиши это используя точки (например "1.16.5" или "20.144.2.0")</v:String>
+    <v:String x:Key="NewGameDescription">Версия игры для которой создается сборка</v:String>
+    <v:String x:Key="NewLoaderData">Данные Загрузчика</v:String>
+    <v:String x:Key="NewLoaderDescription">Дополнительная информация для проверки</v:String>
+    
+    <!-- Mod Preview Page -->
+    <v:String x:Key="MpAbout">Предпросмотр модов</v:String>
+    <v:String x:Key="MpAboutDescription">Небольшая справочная карта</v:String>
+    <v:String x:Key="MpAboutText">
+        Эта страница показывает информацию о выбранном моде для игры
+        Карточка ниже, которая разворачивается при выборе - показывает свойства и характеристики
+    </v:String>
+    <v:String x:Key="MpModManifestText">
+        Любой загрузчик мода обязан вшить в модификацию специальный файл
+        манифеста. Без него игра не сможет предоставить свои функции,
+        а сам мод не сможет ими пользоваться.
+    </v:String>
+    <v:String x:Key="MpModCardFileText">
+        Это карта выбранного мода. Сводка выше - это данные файла. 
+    </v:String>
+    <v:String x:Key="MpModCardModText">
+        Сводка ниже - это характеристики самого мода, а не файла.
+        Именно они используются при запуске игры, чтобы разрешить зависимости
+        и загрузить мод в память игры.
+        
+        Вкладок может быть несколько. Выбирайте ту, с помощью чего вы хотите его загрузить в игру.
+    </v:String>
+    <v:String x:Key="MpModCard">Вы только что открыли</v:String>
+    <v:String x:Key="MpOpenMod">Открыть мод</v:String>
+    <v:String x:Key="MpOpenModDescription">Откройте Java архив и проверьте его данные</v:String>
+    
+    <!-- Critical Window -->
+    <v:String x:Key="CwHeader">:'(</v:String>
+    <v:String x:Key="CwStub">
+        Что-то пошло не так и программа должна была срочно закрыться.
+        Эта программа использует DEBUG настройки, и вы можете посмотреть
+        цепочку ошибок сами или поделиться, кликнув на карточку "Crash Log".
+    </v:String>
+    <v:String x:Key="CwCard">Crash Log</v:String>
+</ResourceDictionary>

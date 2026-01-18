@@ -1,0 +1,99 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Windows Naming -->
+    <v:String x:Key="WndCritical">Previous Process problem</v:String>
+    <v:String x:Key="WndMain">TomLauncher</v:String>
+    <v:String x:Key="WndNewPack">Create Modpack</v:String>
+    
+    <!--Navigation Tabs-->
+    <v:String x:Key="NvgGamePreview">Game Directory</v:String>
+    <v:String x:Key="NvgPackEditor">Package Editor</v:String>
+    <v:String x:Key="NvgModPreview">Modification Preview</v:String>
+    
+    <!-- Editor Page Strings-->
+    <v:String x:Key="EdTitle">Package Actions</v:String>
+    <v:String x:Key="EdCreatePackage">Create Package</v:String>
+    <v:String x:Key="EdOpenPackage">Open Package</v:String>
+    <v:String x:Key="EdExport">Export Package</v:String>
+    <v:String x:Key="EdExportDescription">Replace all entries in Game directory with current modpack</v:String>
+    <v:String x:Key="EdLocationDescription">Open current Modpack in Explorer</v:String>
+    <v:String x:Key="EdLocation">Open Modpack location</v:String>
+    <v:String x:Key="Explorer">Explorer</v:String>
+    <v:String x:Key="EdPack">Package</v:String>
+    <v:String x:Key="EdOpenPackageDescription">Open an existing TomLauncher archive</v:String>
+    <v:String x:Key="EdCreatePackageDescription">Create new ModPack and name it as you want</v:String>
+    <v:String x:Key="EdCacheCardDescription">This block shows information about previous unsaved ModPack</v:String>
+    <v:String x:Key="EdPackageCardDescription">This block shows you information about current opened ModPack</v:String>
+    <v:String x:Key="EdReadOnly">Read-only mode</v:String>
+    <v:String x:Key="EdCheckAll">Check</v:String>
+    
+    <!-- Editor Page -> Cache Settings -> Cache-->
+    <v:String x:Key="EdPath">Path</v:String>
+    <v:String x:Key="EdSize">Size</v:String>
+    
+    <!-- Common Terminology -->
+    <v:String x:Key="Name">Name</v:String>
+    <v:String x:Key="Path">Path</v:String>
+    <v:String x:Key="Open">Open</v:String>
+    <v:String x:Key="Create">Create</v:String>
+    <v:String x:Key="Browse">Browse</v:String>
+    <v:String x:Key="Game">Minecraft</v:String>
+    <v:String x:Key="Version">Version</v:String>
+    <v:String x:Key="Loader">Expected Loader</v:String>
+    <v:String x:Key="Clear">Clear</v:String>
+    <v:String x:Key="Cancel">Cancel</v:String>
+    <v:String x:Key="Title">Title</v:String>
+    <v:String x:Key="LoaderVersion">Loader Version</v:String>
+    <v:String x:Key="LoaderString">Provider</v:String>
+    <v:String x:Key="GameVersion">Minecraft Version</v:String>
+    <v:String x:Key="Delete">Delete</v:String>
+    <v:String x:Key="CreatedAt">Creation Time</v:String>
+    <v:String x:Key="LastAccess">Last Access</v:String>
+    <v:String x:Key="UnixMode">UNIX Mode</v:String>
+    <v:String x:Key="EmbeddedLoaders">Embedded Loaders</v:String>
+    <v:String x:Key="Depends">Depends On</v:String>
+
+    <!--ModPack manifest-->
+    <v:String x:Key="NewCardTitle">New ModPack</v:String>
+    <v:String x:Key="NewCardDescription">Let's setup new ModPack necessary data </v:String>
+    <v:String x:Key="NewVersionToolTip">Write it using dots (e.g "1.16.5" or "121.154.2.0")</v:String>
+    <v:String x:Key="NewGameDescription">Game version what needs to be loaded with ModPack</v:String>
+    <v:String x:Key="NewLoaderData">ModLoader Data</v:String>
+    <v:String x:Key="NewLoaderDescription">Expand it if you know what do you want</v:String>
+    
+    <!-- Mod Preview Page -->
+    <v:String x:Key="MpAbout">Mod Preview Page</v:String>
+    <v:String x:Key="MpAboutDescription">Little information card</v:String>
+    <v:String x:Key="MpAboutText">
+        This page shows information about selected Java Minecraft Mod.
+        Dropped down cards are modloaders which could load this Mod.
+    </v:String>
+    <v:String x:Key="MpModManifestText">
+        Every modloader must have special manifest file which tells about
+        resolved mod dependencies and about mod itself. You can use it in purposes
+        to know supported game versions range or other details.
+    </v:String>
+    <v:String x:Key="MpModCardFileText">
+        This is a mod card. Upper block is an file information. 
+    </v:String>
+    <v:String x:Key="MpModCardModText">
+        Next following data will be information about mod itself.
+        Because it may having info about game version and other dependencies
+        
+        Sometimes mods are having support of more than one modloader.
+    </v:String>
+    <v:String x:Key="MpModCard">You've just opened</v:String>
+    <v:String x:Key="MpOpenMod">Open Minecraft Mod</v:String>
+    <v:String x:Key="MpOpenModDescription">Open and read data from Java archive</v:String>
+    
+    <!-- Critical Window -->
+    <v:String x:Key="CwHeader">:'(</v:String>
+    <v:String x:Key="CwStub">
+        Something went wrong and application was terminated. 
+        You are running DEBUG configuration and "Crach Log" card
+        contains naked procedure data which need to fixup
+    </v:String>
+    <v:String x:Key="CwCard">Crash Log</v:String>
+    
+</ResourceDictionary>

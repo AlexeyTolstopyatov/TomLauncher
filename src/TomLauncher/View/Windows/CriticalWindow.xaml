@@ -1,0 +1,59 @@
+﻿<ui:FluentWindow x:Class="TomLauncher.View.Windows.CriticalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TomLauncher.ViewModel.Windows"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        Title="CriticalWindow" Height="Auto" Width="600">
+    <ui:FluentWindow.DataContext>
+        <local:CriticalViewModel/>
+    </ui:FluentWindow.DataContext>
+    <StackPanel>
+        <ui:TitleBar
+            ShowMinimize="True"
+            CanMaximize="False"
+            Icon="{ui:SymbolIcon Warning16}"
+            Title="Previous Process Problem"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="72"
+                Text="{DynamicResource CwHeader}">
+            </TextBlock>
+            <TextBlock
+                VerticalAlignment="Center"
+                TextWrapping="WrapWithOverflow"
+                Grid.Column="1"
+                Text="{DynamicResource CwStub}">
+            </TextBlock>
+        </Grid>
+        
+        <ui:CardExpander
+            Margin="10,20,10,20"
+            Icon="{ui:SymbolIcon Info16}">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource CwCard}"/>
+                    <Label Content="{Binding Model.CrashInfo.CreationTimeUtc}"/>
+                </StackPanel>
+            </ui:CardExpander.Header>
+            
+            <TextBlock
+                FontSize="16"
+                FontFamily="Consolas"
+                TextWrapping="WrapWithOverflow"
+                Text="{Binding Model.CrashLog}">
+                
+            </TextBlock>
+        </ui:CardExpander>
+    </StackPanel>
+</ui:FluentWindow>

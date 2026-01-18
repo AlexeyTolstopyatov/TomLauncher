@@ -1,0 +1,245 @@
+﻿<Page x:Class="TomLauncher.View.Pages.EditorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TomLauncher.ViewModel.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d"
+      Title="EditorPage" 
+      Height="Auto" Width="Auto">
+    <Page.DataContext>
+        <local:EditorViewModel/>
+    </Page.DataContext>
+    <StackPanel>
+        <Label
+            Content="{DynamicResource EdTitle}"
+            Margin="0,10,0,10"/>
+        
+        <ui:CardControl
+            Icon="{ui:SymbolIcon Cube16}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock
+                        Text="{DynamicResource EdCreatePackage}"/>
+                    <Label
+                        Content="{DynamicResource EdCreatePackageDescription}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:CardControl.Content>
+                <ui:Button
+                    Width="100"
+                    Appearance="Primary"
+                    Command="{Binding CreatePackageCommand}"
+                    Content="{DynamicResource Create}"/>
+            </ui:CardControl.Content>
+        </ui:CardControl>
+        
+        <ui:CardControl
+            Icon="{ui:SymbolIcon ArrowImport20}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource EdOpenPackage}"/>
+                    <Label Content="{DynamicResource EdOpenPackageDescription}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:CardControl.Content>
+                <ui:Button
+                    Width="100"
+                    Appearance="Secondary"
+                    Command="{Binding OpenPackageCommand}"
+                    Content="{DynamicResource Browse}"
+                    />
+            </ui:CardControl.Content>
+        </ui:CardControl>
+        <ui:CardControl
+            Visibility="{Binding Model.PackageOpened}"
+            Icon="{ui:SymbolIcon ArrowExportLtr16}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource EdExport}"/>
+                    <Label Content="{DynamicResource EdExportDescription}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            
+            <ui:Button
+                IsEnabled="{Binding Model.IsExportEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding ExportCommand}"
+                Content="{DynamicResource EdExport}"
+                Appearance="Caution">
+                
+            </ui:Button>
+        </ui:CardControl>
+        <ui:CardControl
+            Visibility="{Binding Model.PackageOpened}"
+            Icon="{ui:SymbolIcon ArrowUpload16}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource EdLocation}"/>
+                    <Label Content="{DynamicResource EdLocationDescription}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:Button
+                Command="{Binding ExplorerCommand}"
+                Content="{DynamicResource Explorer}">
+                
+            </ui:Button>
+        </ui:CardControl>
+        <!--Changing visibility depending on opened package-->
+        <Label
+            Visibility="{Binding Model.PackageOpened}"
+            Margin="0,10,0,10"
+            Content="{Binding Model.Package.Name}"/>
+        <ui:CardExpander
+            Icon="{ui:SymbolIcon Star16}"
+            IsExpanded="True"
+            Visibility="{Binding Model.PackageOpened}">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock Text="{Binding Model.Package.Name}"/>
+                    <Label Content="{Binding Model.Package.Loader.Type}"/>
+                </StackPanel>
+            </ui:CardExpander.Header>
+            <ui:CardExpander.Content>
+                <StackPanel>
+                    <Label
+                        Content="{DynamicResource EdPackageCardDescription}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- LoaderData Dictionary -->
+                        
+                        <StackPanel>
+                            <TextBlock
+                                Text="Minecraft"/>
+                            <TextBlock
+                                Text="{Binding Model.Package.Loader.Type}"/>
+                        </StackPanel>
+                        
+                        <StackPanel
+                            Grid.Column="1">
+                            <WrapPanel>
+                                <Label Content="{Binding Model.Package.Loader.Major}"/>
+                                <TextBlock Text="."/>
+                                <Label Content="{Binding Model.Package.Loader.Minor}"/>
+                                <TextBlock Text="."/>
+                                <Label Content="{Binding Model.Package.Loader.Revision}"/>
+                                <TextBlock Text="."/>
+                                <Label Content="{Binding Model.Package.Loader.Build}"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{Binding Model.Package.Minecraft.Major}"/>
+                                <TextBlock Text="."/>
+                                <Label Content="{Binding Model.Package.Minecraft.Minor}"/>
+                                <TextBlock Text="."/>
+                                <Label Content="{Binding Model.Package.Minecraft.Revision}"/>
+                                <TextBlock Text="."/>
+                                <Label Content="{Binding Model.Package.Minecraft.Build}"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Grid>
+                    <WrapPanel
+                        Margin="0,5,0,5">
+                        <ui:Button
+                            Margin="0,0,5,0"
+                            Appearance="Primary"
+                            Icon="{ui:SymbolIcon Add16}"
+                            Content="Mod"
+                            CommandParameter="Mod"
+                            Command="{Binding IncludeCommand}"/>
+                        <ui:Button
+                            Margin="0,0,5,0"
+                            Command="{Binding IncludeCommand}"
+                            CommandParameter="Resource"
+                            Icon="{ui:SymbolIcon Cube16}"
+                            Content="Resource pack"/>
+                        <ui:Button
+                            Margin="0,0,5,0"
+                            CommandParameter="Shaders"
+                            Command="{Binding IncludeCommand}"
+                            Icon="{ui:SymbolIcon WeatherMoon16}"
+                            Content="Shader pack"/>
+                        <ui:Button
+                            Margin="10,0,10,0"
+                            Icon="{ui:SymbolIcon Check20}"
+                            Content="{DynamicResource EdCheckAll}"/>
+                    </WrapPanel>
+                    <ItemsControl
+                        ItemsSource="{Binding Model.Package.Mods}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ui:CardControl
+                                    Icon="{ui:SymbolIcon Archive16}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <Label Content="{Binding File.Name}"/>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ui:Button
+                                        Icon="{ui:SymbolIcon Delete16}"
+                                        Content="{DynamicResource Delete}"
+                                        Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                        CommandParameter="{Binding}">
+                                    </ui:Button>
+                                </ui:CardControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ItemsControl
+                        ItemsSource="{Binding Model.Package.Resources}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ui:CardControl
+                                    Icon="{ui:SymbolIcon Wallpaper20}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock 
+                                                Text="{Binding PackDescription}"
+                                                ToolTip="{Binding PackFormat}"/>
+                                            <Label Content="{Binding File.Name}"/>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ui:Button
+                                        Icon="{ui:SymbolIcon Delete16}"
+                                        CommandParameter="{Binding}"
+                                        Content="{DynamicResource Delete}"
+                                        Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                                </ui:CardControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <ItemsControl
+                        ItemsSource="{Binding Model.Package.Shaders}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ui:CardControl
+                                    Icon="{ui:SymbolIcon WeatherMoon16}">
+                                    <ui:CardControl.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding File.Name}"/>
+                                            <Label Content="{Binding  ConfigFileName}"/>
+                                        </StackPanel>
+                                    </ui:CardControl.Header>
+                                    <ui:Button
+                                        Icon="{ui:SymbolIcon Delete16}"
+                                        CommandParameter="{Binding }"
+                                        Content="{DynamicResource Delete}"
+                                        Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                                </ui:CardControl>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ui:CardExpander.Content>
+        </ui:CardExpander>
+    </StackPanel>
+</Page>

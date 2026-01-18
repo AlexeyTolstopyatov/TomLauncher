@@ -1,0 +1,176 @@
+﻿<Page x:Class="TomLauncher.View.Pages.ModPreviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TomLauncher.ViewModel.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d"
+      Title="ModPreviewPage" Height="Auto" Width="Auto">
+    <Page.DataContext>
+        <local:ModPreviewViewModel/>
+    </Page.DataContext>
+    
+    <StackPanel>
+        <Label
+            Margin="0,10,0,10"
+            Content="General"/>
+        <ui:CardExpander
+            IsExpanded="False"
+            Icon="{ui:SymbolIcon Info16}">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource MpAbout}"/>
+                    <Label Content="{DynamicResource MpAboutDescription}"/>
+                </StackPanel>
+            </ui:CardExpander.Header>
+            <TextBlock
+                FontFamily="Consolas"
+                FontSize="16"
+                TextWrapping="WrapWithOverflow">
+                <Run
+                    Text="{DynamicResource MpAboutText}"/>
+                <LineBreak/>
+                <LineBreak/>
+                <Run
+                    Text="{DynamicResource MpModManifestText}"/>
+            </TextBlock>
+        </ui:CardExpander>
+        <ui:CardControl
+            Icon="{ui:SymbolIcon ArrowImport20}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource MpOpenMod}"/>
+                    <Label Content="{DynamicResource MpOpenModDescription}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:Button
+                Command="{Binding OpenModCommand}"
+                Width="100"
+                Content="{DynamicResource Open}"
+                Appearance="Primary"/>
+        </ui:CardControl>
+        
+        <Label
+            Visibility="{Binding Model.ModVisibility}"
+            Margin="0,10,0,10"
+            Content="{DynamicResource MpModCard}"/>
+        <ui:Card
+            Visibility="{Binding Model.ModVisibility}">
+            
+            <StackPanel>
+                <TextBlock
+                    FontSize="30"
+                    Text="{Binding Model.Mod.File.Name}"/>
+                <Label
+                    Margin="0,0,0,10"
+                    Content="{Binding Model.Mod.File.FullName}"/>
+                <Grid
+                    HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel
+                        Width="200">
+                        <Label Content="{DynamicResource CreatedAt}"/>
+                        <Label Content="{DynamicResource LastAccess}"/>
+                        <Label Content="{DynamicResource UnixMode}"/>
+                        <Label Content="{DynamicResource EmbeddedLoaders}"/>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1">
+                        <Label Content="{Binding Model.Mod.File.CreationTime}"/>
+                        <Label Content="{Binding Model.Mod.File.LastAccessTime}"/>
+                        <Label Content="{Binding Model.Mod.File.UnixFileMode}"/>
+                        <Label Content="{Binding Model.Mod.Manifests.Count}"/>
+                    </StackPanel>
+                </Grid>
+                
+                <ui:CardControl
+                    Margin="0,10,0,10"
+                    Opacity="0.5"
+                    Background="DarkCyan"
+                    Foreground="Aqua"
+                    Icon="{ui:SymbolIcon Info16}">
+                    <ui:CardControl.Header>
+                        <StackPanel>
+                            <TextBlock
+                                TextWrapping="WrapWithOverflow">
+                                <Run Text="{DynamicResource MpModCardFileText}"/>
+                                <LineBreak/>
+                                <LineBreak/>
+                                <Run Text="{DynamicResource MpModCardModText}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+                
+                <ItemsControl
+                    ItemsSource="{Binding Model.Mod.Manifests}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ui:CardExpander>
+                                <ui:CardExpander.Header>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Key}"/>
+                                        <Label Content="{Binding Value.LoaderVersion}"/>
+                                    </StackPanel>
+                                </ui:CardExpander.Header>
+                                <StackPanel>
+                                    <TextBlock 
+                                        FontSize="24"
+                                        Text="{Binding Value.Title}"/>
+                                    <TextBlock
+                                        Margin="0,0,0,10"
+                                        Text="{Binding Value.Version}"/>
+                                    
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <StackPanel>
+                                            <Label Content="{DynamicResource Game}"/>
+                                            <Label Content="{Binding Value.LoaderType}"/>
+                                            <Label Content="{Binding Value.Api}"/>
+                                        </StackPanel>
+                                        <StackPanel
+                                            Grid.Column="1">
+                                            <Label Content="{Binding Value.MinecraftVersion}"/>
+                                            <Label Content="{Binding Value.LoaderVersion}"/>
+                                            <Label Content="{Binding Value.ApiVersion}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <ItemsControl
+                                        Margin="0,10,0,0"
+                                        ItemsSource="{Binding Value.Dependencies}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ui:Card>
+                                                    <StackPanel>
+                                                        <TextBlock
+                                                            FontSize="20"
+                                                            Text="{DynamicResource DependsOn}"/>
+                                                        <TextBlock
+                                                            Margin="0,0,0,10"
+                                                            Text="{Binding Key}"/>
+                                                        <ui:DataGrid
+                                                            IsReadOnly="True"
+                                                            ItemsSource="{Binding Value}"/>
+                                                    </StackPanel>
+                                                </ui:Card>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ui:CardExpander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ui:Card>
+    </StackPanel>
+</Page>

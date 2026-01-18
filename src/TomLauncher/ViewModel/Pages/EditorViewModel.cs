@@ -1,0 +1,190 @@
+﻿using System.Diagnostics;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
+using Microsoft.Win32;
+using TomLauncher.Backend;
+using TomLauncher.Backend.Builder;
+using TomLauncher.Model;
+using TomLauncher.View.Windows;
+using TomLauncher.ViewModel.Windows;
+using Wpf.Ui.Input;
+
+namespace TomLauncher.ViewModel.Pages;
+
+/// <summary>
+/// EditorPage view model contains just bindings with EditorPage Model
+/// 
+/// </summary>
+public class EditorViewModel
+{
+    private ModPackBuilder? _builder;
+    public EditorViewModel()
+    {
+        Model = new EditorPageModel
+        {
+            PackageOpened = Visibility.Collapsed
+        };
+        
+        CreatePackageCommand = new RelayCommand<object>(CreatePackage);
+        OpenPackageCommand = new RelayCommand<object>(OpenPackage);
+        ExportCommand = new RelayCommand<object>(ExportPackage);
+        ExplorerCommand = new RelayCommand<object>(Explorer);
+        IncludeCommand = new RelayCommand<string>(Include);
+        ExcludeCommand = new RelayCommand<object>(Exclude);
+    }
+
+    public EditorPageModel Model { get; }
+    public ICommand CreatePackageCommand { get; }
+    public ICommand OpenPackageCommand { get; }
+    public ICommand ExcludeCommand { get; }
+    public ICommand IncludeCommand { get; }
+    public ICommand ExportCommand { get; }
+    public ICommand ExplorerCommand { get; }
+
+    public void ExportPackage(object? _)
+    {
+        Model.IsExportEnabled = false;
+        
+        // Get settings file right now
+        
+    }
+
+    private void Explorer(object? _)
+    {
+        Process.Start("explorer", _builder!.Root);
+    }
+    private void CreatePackage(object? _)
+    {
+        var dialog = new NewPackageWindow();
+        dialog.ShowDialog();
+
+        var result = dialog.DialogResult!.Value;
+        
+        if (!result || dialog.DataContext is not NewPackageViewModel vm) 
+            return;
+        
+        Model.PackageOpened = Visibility.Visible;
+        Model.Package = vm.Model.ToPackageData;
+
+        _builder = new ModPackBuilder(vm.Model.Path!, vm.Model.Name!, false);
+            
+        _builder.Write(Model.Package);
+    }
+
+    private void OpenPackage(object? _)
+    {
+        var dialog = new OpenFolderDialog
+        {
+            Multiselect = false
+        };
+        dialog.ShowDialog();
+        
+        Console.WriteLine(dialog.FolderName);
+        if (string.IsNullOrEmpty(dialog.FolderName))
+        {
+            Console.WriteLine("Empty directory");
+            return;
+        }
+        
+        if (!File.Exists($"{dialog.FolderName}\\header.toml"))
+        {
+            Console.WriteLine("Missing header.toml");
+            return;
+        }
+        
+        // Fill the card from header.toml
+        _builder = new ModPackBuilder(dialog.FolderName);
+        Model.Package = _builder.Read();
+        // Scan nested mods
+        foreach (var mod in Directory.EnumerateFiles(_builder.Mods))
+        {
+            var model = _builder.GetMod(mod, Model.Package.Loader!.Type);
+                
+            if (model.Manifests.ContainsKey(Model.Package.Loader!.Type))
+                Model.Package.Mods.Add(model);
+            else
+                Console.WriteLine($"Skipped: {Model.Package.Loader.Type} not embedded into {model.Name}");
+            
+        }
+        // Scan nested textures
+        foreach (var resource in Directory.EnumerateFiles(_builder.ResourcePacks))
+        {
+            var model = _builder.GetResource(resource);
+            Model.Package.Resources.Add(model);
+        }
+        // Scan nested shaders
+        foreach (var shaders in Directory.EnumerateFiles(_builder.ShaderPacks).Where(t => t.Contains(".zip")))
+        {
+            var model = _builder.GetShaders(shaders);
+            Model.Package.Shaders.Add(model);
+        }
+        
+        Model.PackageOpened = Visibility.Visible;
+        Model.IsExportEnabled = true;
+    }
+    
+    private void Include(string? parameter)
+    {
+        var kind = Enum.Parse<ModPackBuilder.ArtifactKind>(parameter!);
+        var dialog = new OpenFileDialog
+        {
+            Multiselect = true,
+            Filter = "Minecraft Mods (*.jar)|*.jar|Minecraft Resources (*.zip)|*.zip|Minecraft Shaders (*.zip)|*.zip",
+            FilterIndex = (int)kind + 1
+        };
+        dialog.ShowDialog();
+
+        foreach (var item in dialog.FileNames)
+        {
+            // unoptimized
+            switch (kind)
+            {
+                case ModPackBuilder.ArtifactKind.Mod:
+                    if (!Model.Package!.Mods.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
+                    {
+                        Model.Package?.Mods.Add(_builder?.GetMod(item, Model.Package.Loader!.Type)!);
+                        _builder?.Include(item, kind);
+                    }
+                    break;
+                case ModPackBuilder.ArtifactKind.Resource:
+                    if (!Model.Package!.Resources.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
+                    {
+                        Model.Package?.Resources.Add(_builder?.GetResource(item)!);
+                        _builder?.Include(item, kind);
+                    }
+                    break;
+                case ModPackBuilder.ArtifactKind.Shaders:
+                    if (!Model.Package!.Mods.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
+                    {
+                        Model.Package?.Shaders.Add(_builder?.GetShaders(item)!);
+                        _builder?.Include(item, kind);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void Exclude(object? model)
+    {
+        switch (model)
+        {
+            case JavaArchiveData j:
+                _builder?.Exclude($"{_builder.Mods}\\{j.File?.Name}");
+                Model.Package?.Mods.Remove(j);
+                break;
+            case TextureData t:
+                _builder?.Exclude($"{_builder.ResourcePacks}\\{t.File.Name}");
+                Model.Package?.Resources.Remove(t);
+                break;
+            case ShadersData s:
+                _builder?.Exclude($"{_builder.ShaderPacks}\\{s.File.Name}");
+                
+                if (!string.IsNullOrEmpty(s.ConfigFileName))
+                    _builder?.Exclude($"{_builder.ShaderPacks}\\{s.ConfigFileName}");
+                
+                Model.Package?.Shaders.Remove(s);
+                break;
+        }
+    }
+}
