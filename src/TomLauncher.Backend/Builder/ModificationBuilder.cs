@@ -21,7 +21,7 @@ public static class ModificationBuilder
         {
             File = fileInfo,
             Loader = LoaderType.Unknown,
-            Manifests = new()
+            Manifests = new Dictionary<LoaderType, ManifestGenerals>()
         };
         // ViewModel layer not denies using of custom named archives
         // But here I want to deny it because many exception chains

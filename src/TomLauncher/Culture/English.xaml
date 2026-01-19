@@ -40,9 +40,11 @@
     <v:String x:Key="Browse">Browse</v:String>
     <v:String x:Key="Game">Minecraft</v:String>
     <v:String x:Key="Version">Version</v:String>
+    <v:String x:Key="Restart">Restart</v:String>
     <v:String x:Key="Loader">Expected Loader</v:String>
     <v:String x:Key="Clear">Clear</v:String>
     <v:String x:Key="Cancel">Cancel</v:String>
+    <v:String x:Key="Apply">Apply</v:String>
     <v:String x:Key="Title">Title</v:String>
     <v:String x:Key="LoaderVersion">Loader Version</v:String>
     <v:String x:Key="LoaderString">Provider</v:String>
@@ -53,7 +55,9 @@
     <v:String x:Key="UnixMode">UNIX Mode</v:String>
     <v:String x:Key="EmbeddedLoaders">Embedded Loaders</v:String>
     <v:String x:Key="Depends">Depends On</v:String>
-
+    <v:String x:Key="UpdateSettings">Update Settings</v:String>
+    <v:String x:Key="UpdateSettingsDescription">Update settings file (remember my choice)</v:String>
+    <v:String x:Key="UpdateToolTip">If you are leave this page without update it will discard your changes!</v:String>
     <!--ModPack manifest-->
     <v:String x:Key="NewCardTitle">New ModPack</v:String>
     <v:String x:Key="NewCardDescription">Let's setup new ModPack necessary data </v:String>
@@ -61,6 +65,8 @@
     <v:String x:Key="NewGameDescription">Game version what needs to be loaded with ModPack</v:String>
     <v:String x:Key="NewLoaderData">ModLoader Data</v:String>
     <v:String x:Key="NewLoaderDescription">Expand it if you know what do you want</v:String>
+    <v:String x:Key="Root">Locate here</v:String>
+    <v:String x:Key="RootText">Don't create folder with modpack name, locate mods by given path</v:String>
     
     <!-- Mod Preview Page -->
     <v:String x:Key="MpAbout">Mod Preview Page</v:String>
@@ -113,8 +119,9 @@
         you are implicitly extract mod data in memory.
         When mod-compatibility check is done - extracted mod data release from memory.
     </v:String>
-    
-    <v:String x:Key="FstGameLocation">Set the Game location</v:String>
+    <v:String x:Key="LanguageSettings">Language Settings</v:String>
+    <v:String x:Key="GameLocationCard">Game Location</v:String>
+    <v:String x:Key="FstGameLocation">Setup the Game location</v:String>
     <v:String x:Key="FstGameLocationTooltip">
         In most cases, it locates in User temporary data, e.g. "%appdata%/.minecraft".
     </v:String>

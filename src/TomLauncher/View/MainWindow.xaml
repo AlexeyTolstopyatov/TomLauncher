@@ -21,6 +21,7 @@
             x:Name="MainNavigationView"
             Loaded="MainNavigationViewOnLoaded"
             PaneDisplayMode="Left"
+            OpenPaneLength="200"
             Grid.Row="1"
             VerticalContentAlignment="Top"
             Padding="20"
@@ -46,6 +47,13 @@
                     
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
+            
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem
+                    TargetPageType="{x:Type pages:SettingsPage}"
+                    Icon="{ui:SymbolIcon Settings16}"
+                    Content="{DynamicResource WndMain}"/>
+            </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
     </Grid>
 </ui:FluentWindow>

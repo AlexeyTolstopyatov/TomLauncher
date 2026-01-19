@@ -15,7 +15,7 @@
     <StackPanel>
         <ui:TitleBar
             Icon="{ui:SymbolIcon Cube16}"
-            Title="New Package"/>
+            Title="{DynamicResource WndNewPack}"/>
         
         <ui:Card>
             <StackPanel>
@@ -28,19 +28,37 @@
                     <Label 
                         Content="{DynamicResource Name}"/>
                     <TextBox
-                        Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged}"
-                        />
+                        IsEnabled="{Binding Model.DisableName, UpdateSourceTrigger=PropertyChanged}"
+                        Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel
                     Margin="10,0,10,0">
-                    <Label Content="Path"/>
-                    <ui:TextBox
-                        Text="{Binding Model.Path, UpdateSourceTrigger=PropertyChanged}"
-                        Margin="0,0,0,5"/>
-                    <!--Open the SelectDirectory dialog -> * -->
-                    <ui:Button
-                        Command="{Binding BrowseCommand, UpdateSourceTrigger=PropertyChanged}"
-                        Content="{DynamicResource Browse}"/>
+                    <Label Content="{DynamicResource Path}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBox
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Stretch"
+                            Text="{Binding Model.Path, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,0,0,5"/>
+                        <ui:Button
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Margin="5,0"
+                            Height="35"
+                            Command="{Binding BrowseCommand, UpdateSourceTrigger=PropertyChanged}"
+                            Content="{DynamicResource Browse}"/>
+                        <!--Open the SelectDirectory dialog -> * -->
+                    </Grid>
+                    <ui:ToggleSwitch
+                        IsChecked="{Binding Model.MarkAsRoot}"
+                        ToolTip="{DynamicResource RootText}"
+                        Margin="0, 10"
+                        Content="{DynamicResource Root}">
+                    </ui:ToggleSwitch>
                 </StackPanel>
                 <StackPanel
                     Margin="10,0,10,0">

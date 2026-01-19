@@ -1,10 +1,14 @@
-﻿namespace TomLauncher.Model;
+﻿using TomLauncher.ViewModel;
+
+namespace TomLauncher.Model;
 
 /// <summary>
 /// Settings File schema version 1.0
 /// </summary>
-public class SettingsModel
+public class SettingsModel : NotifyPropertyChanged
 {
+    private string _gameLocation = ".";
+    private int _currentLanguage;
     /// <summary>
     /// ComboBox list of possible languages.
     /// Sorry for no reflection (;- ;)
@@ -17,17 +21,21 @@ public class SettingsModel
     /// <summary>
     /// Automatically updates when Settings VM will be init
     /// </summary>
-    public string GameDirectory
+    public string GameLocation
     {
-        get; 
-        set;
-    } = ".";
+        get => _gameLocation; 
+        set => SetField(ref _gameLocation, value);
+    }
     /// <summary>
     /// Automatically updates when Settings VM will be init
     /// </summary>
-    public int LanguageIndex
+    public int CurrentLanguage
     {
-        get; 
-        set;
-    } = 0;
+        get => _currentLanguage;
+        set
+        {
+            App.SetLanguage(Languages[value]);
+            SetField(ref _currentLanguage, value);
+        }
+    }
 }

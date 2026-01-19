@@ -11,6 +11,7 @@ public class NewPackageModel : NotifyPropertyChanged
     private string? _minecraftString;
     private string _loaderType = nameof(TomLauncher.Backend.LoaderType.Unknown);
     private string? _loaderString;
+    private bool _markAsRoot;
     /// <summary>
     /// The "Modpack Name". or "Folder name" of current ModPack
     /// </summary>
@@ -67,6 +68,14 @@ public class NewPackageModel : NotifyPropertyChanged
     /// </summary>
     private LoaderData Loader => 
         new(Enum.Parse<LoaderType>(LoaderType), LoaderString);
+    /// <summary>
+    /// If flag set -> Disable Name Textbox and send data to builder
+    /// </summary>
+    public bool MarkAsRoot
+    {
+        get => _markAsRoot;
+        set => SetField(ref _markAsRoot, value);
+    }
     /// <summary>
     /// Safe cast of current NewPackageModel to prepared PackageData model
     /// </summary>

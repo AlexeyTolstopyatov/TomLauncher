@@ -14,7 +14,6 @@ namespace TomLauncher.ViewModel.Pages;
 
 /// <summary>
 /// EditorPage view model contains just bindings with EditorPage Model
-/// 
 /// </summary>
 public class EditorViewModel
 {
@@ -25,10 +24,9 @@ public class EditorViewModel
         {
             PackageOpened = Visibility.Collapsed
         };
-        
-        CreatePackageCommand = new RelayCommand<object>(CreatePackage);
-        OpenPackageCommand = new RelayCommand<object>(OpenPackage);
-        ExportCommand = new RelayCommand<object>(ExportPackage);
+        CreatePackageCommand = new RelayCommand<object>(Create);
+        OpenPackageCommand = new RelayCommand<object>(Open);
+        ExportCommand = new RelayCommand<object>(Export);
         ExplorerCommand = new RelayCommand<object>(Explorer);
         IncludeCommand = new RelayCommand<string>(Include);
         ExcludeCommand = new RelayCommand<object>(Exclude);
@@ -42,17 +40,24 @@ public class EditorViewModel
     public ICommand ExportCommand { get; }
     public ICommand ExplorerCommand { get; }
 
-    public void ExportPackage(object? _)
+    private void Export(object? _)
     {
-        Model.IsExportEnabled = false;
+        var minecraft = new DirectoryInfo(App.GameLocation);
+        if (!minecraft.Exists)
+        {
+            Console.WriteLine("Missing .minecraft catalog");
+            return;
+        }
         
+        Model.IsExportEnabled = false;
     }
-
+    
     private void Explorer(object? _)
     {
         Process.Start("explorer", _builder!.Root);
     }
-    private void CreatePackage(object? _)
+    
+    private void Create(object? _)
     {
         var dialog = new NewPackageWindow();
         dialog.ShowDialog();
@@ -66,11 +71,10 @@ public class EditorViewModel
         Model.Package = vm.Model.ToPackageData;
 
         _builder = new PackageBuilder(vm.Model.Path!, vm.Model.Name!, false);
-            
         _builder.Write(Model.Package);
     }
 
-    private void OpenPackage(object? _)
+    private void Open(object? _)
     {
         var dialog = new OpenFolderDialog
         {
@@ -146,7 +150,7 @@ public class EditorViewModel
                     }
                     break;
                 case PackageBuilder.ArtifactKind.Resource:
-                    if (!Model.Package!.Resources.Select(t => t.File?.Name).Contains(Path.GetFileName(item)))
+                    if (!Model.Package!.Resources.Select(t => t.File.Name).Contains(Path.GetFileName(item)))
                     {
                         Model.Package?.Resources.Add(_builder?.GetResource(item)!);
                         _builder?.Include(item, kind);

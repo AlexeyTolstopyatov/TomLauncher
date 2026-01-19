@@ -1,0 +1,84 @@
+﻿<Page x:Class="TomLauncher.View.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TomLauncher.ViewModel.Pages"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      mc:Ignorable="d"
+      Title="SettingsPage" 
+      
+      Height="Auto" Width="Auto">
+    <Page.DataContext>
+        <local:SettingsViewModel/>
+    </Page.DataContext>
+    <StackPanel>
+        <ui:CardControl
+            Icon="{ui:SymbolIcon LocalLanguage16}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource LanguageSettings}"/>
+                    <Label Content="{DynamicResource FstLanguageList}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ComboBox
+                SelectedIndex="{Binding Model.CurrentLanguage, Mode=TwoWay}"
+                ItemsSource="{Binding Model.Languages}"
+                Width="200"/>
+        </ui:CardControl>
+        <ui:CardExpander
+            IsExpanded="True"
+            Icon="{ui:SymbolIcon Games16}">
+            <ui:CardExpander.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource GameLocationCard}"/>
+                    <Label Content="{DynamicResource FstGameLocation}"/>
+                </StackPanel>
+            </ui:CardExpander.Header>
+            <StackPanel>
+                <ui:CardControl
+                    Opacity="0.8"
+                    Background="DarkCyan"
+                    Foreground="Aqua"
+                    Icon="{ui:SymbolIcon Info12}">
+                    <ui:CardControl.Header>
+                        <TextBlock
+                            Text="{DynamicResource FstHelpText}"
+                            TextWrapping="WrapWithOverflow"/>
+                    </ui:CardControl.Header>
+                </ui:CardControl>
+                <Label 
+                    Opacity="0.5"
+                    FontStyle="Italic"
+                    Margin="0, 10"
+                    Content="{DynamicResource FstGameLocationTooltip}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="*"/>
+                       <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Text="{Binding Model.GameLocation, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Button
+                        Command="{Binding BrowseCommand}"
+                        Grid.Column="1"
+                        Content="{DynamicResource Browse}"/>
+                </Grid>
+           </StackPanel>
+        </ui:CardExpander>
+        <ui:CardControl
+            Icon="{ui:SymbolIcon ArrowCounterclockwise16}">
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource UpdateSettings}"/>
+                    <Label Content="{DynamicResource UpdateSettingsDescription}"/>
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:Button
+                Appearance="Primary"
+                ToolTip="{DynamicResource UpdateToolTip}"
+                Content="{DynamicResource Apply}"
+                Command="{Binding WriteSettingsCommand}"/>
+        </ui:CardControl>
+    </StackPanel>
+</Page>

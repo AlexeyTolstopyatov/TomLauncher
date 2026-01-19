@@ -40,6 +40,7 @@
     <v:String x:Key="Browse">Обзор</v:String>
     <v:String x:Key="Game">Minecraft</v:String>
     <v:String x:Key="Version">Версия</v:String>
+    <v:String x:Key="Apply">Применить</v:String>
     <v:String x:Key="Loader">Ожидаемый загрузчик</v:String>
     <v:String x:Key="Clear">Очистить</v:String>
     <v:String x:Key="Cancel">Отмена</v:String>
@@ -53,6 +54,9 @@
     <v:String x:Key="UnixMode">UNIX права доступа</v:String>
     <v:String x:Key="EmbeddedLoaders">Встроенных загрузчиков</v:String>
     <v:String x:Key="DependsOn">Зависимости</v:String>
+    <v:String x:Key="UpdateSettings">Применить настройки</v:String>
+    <v:String x:Key="UpdateSettingsDescription">Обновить файл настроек приложения (прим. с перезапуском)</v:String>
+    <v:String x:Key="UpdateToolTip">Если не применить изменения - как только вы покините страницу, они будут отменены.</v:String>
 
     <!--ModPack manifest-->
     <v:String x:Key="NewCardTitle">Новая сборка</v:String>
@@ -61,7 +65,9 @@
     <v:String x:Key="NewGameDescription">Версия игры для которой создается сборка</v:String>
     <v:String x:Key="NewLoaderData">Данные Загрузчика</v:String>
     <v:String x:Key="NewLoaderDescription">Дополнительная информация для проверки</v:String>
-    
+    <v:String x:Key="Root">Расположить здесь</v:String>
+    <v:String x:Key="RootText">Не создавать папку с именем сборки. Сразу расположить проект по данному пути</v:String>
+
     <!-- Mod Preview Page -->
     <v:String x:Key="MpAbout">Предпросмотр модов</v:String>
     <v:String x:Key="MpAboutDescription">Небольшая справочная карта</v:String>
@@ -111,7 +117,8 @@
         Так же, проверяя модификации или другие ресурсы, вы так же явно
         вскрываете эти пакеты и проверяете их метаданнные.
     </v:String>
-    
+    <v:String x:Key="LanguageSettings">Язык приложения</v:String>
+    <v:String x:Key="GameLocationCard">Расположение игры</v:String>
     <v:String x:Key="FstGameLocation">Укажите расположение игры</v:String>
     <v:String x:Key="FstGameLocationTooltip">
         В основном, она располагается во временных пользовательских файлах,
