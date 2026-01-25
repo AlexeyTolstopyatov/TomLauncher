@@ -11,7 +11,8 @@
         <local:ModPreviewViewModel/>
     </Page.DataContext>
     
-    <StackPanel>
+    <StackPanel
+        Margin="20">
         <Label
             Margin="0,10,0,10"
             Content="General"/>

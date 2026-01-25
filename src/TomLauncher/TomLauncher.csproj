@@ -24,4 +24,9 @@
       <ProjectReference Include="..\TomLauncher.Backend\TomLauncher.Backend.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Assets\**">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 </Project>

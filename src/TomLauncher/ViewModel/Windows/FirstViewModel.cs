@@ -15,7 +15,7 @@ public class FirstViewModel
 
     public FirstViewModel()
     {
-        Model = new();
+        Model = new SettingsModel();
         BrowseCommand = new RelayCommand<object>(Browse);
     }
 

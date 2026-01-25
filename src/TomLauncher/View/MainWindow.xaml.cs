@@ -17,8 +17,8 @@ public partial class MainWindow : FluentWindow
     public MainWindow()
     {
         InitializeComponent();
-        ApplicationThemeManager.ApplySystemTheme();
-        
+        //Appearance.SystemThemeWatcher.Watch(this);;
+        SystemThemeWatcher.Watch(this);
         ReadCrashLog();
     }
 

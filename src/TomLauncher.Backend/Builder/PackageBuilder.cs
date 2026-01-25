@@ -123,7 +123,7 @@ public class PackageBuilder
     {
         try
         {
-            var m = ModificationBuilder.FillJavaArchive(path);
+            var m = EntityBuilder.FillJavaArchive(path);
             if (m.Manifests.ContainsKey(target))
             {
                 m.Title = m.Manifests[target].Title!;
@@ -150,27 +150,7 @@ public class PackageBuilder
     /// </param>
     public TextureData GetResource(string path)
     {
-        var (content, info) = ModificationBuilder.FillResource(path);
-        try
-        {
-            var json = JsonDocument.Parse(content);
-            var pack = json.RootElement.GetProperty("pack");
-
-            var packFormat = pack.GetProperty("pack_format").GetInt32();
-            var packDescription = pack.GetProperty("description").GetString();
-            
-            return new TextureData
-            {
-                PackFormat = packFormat,
-                PackDescription = packDescription!,
-                File = info
-            };
-        }
-        catch (Exception e)
-        {
-            ExceptionWriter.Write(e);
-            throw;
-        }
+        return EntityBuilder.FillResource(path);
     }
     /// <summary>
     /// Builds the Shaders data model for current mod-pack 
@@ -182,7 +162,7 @@ public class PackageBuilder
     {
         try
         {
-            return ModificationBuilder.FillShaders(path);
+            return EntityBuilder.FillShaders(path);
         }
         catch (Exception e)
         {

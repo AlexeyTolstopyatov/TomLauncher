@@ -3,12 +3,190 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:TomLauncher.View.Pages"
+      xmlns:local="clr-namespace:TomLauncher.ViewModel.Pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
-      Title="PreviewPage"
-      Height="Auto" Width="Auto">
-    <StackPanel>
-        
-    </StackPanel>
+      d:DesignWidth="800"
+      d:DesignHeight="450"
+      Title="PreviewPage">
+    <Page.DataContext>
+        <local:PreviewViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <!-- <Grid.Background> -->
+        <!--     <ImageBrush -->
+        <!--         ImageSource="{Binding BackgroundSource}" -->
+        <!--         Stretch="UniformToFill"> -->
+        <!--     </ImageBrush> -->
+        <!-- </Grid.Background> -->
+        <Image
+            Source="{Binding BackgroundSource}"
+            Stretch="UniformToFill"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Image.Effect>
+                <BlurEffect
+                    KernelType="Gaussian"
+                    RenderingBias="Quality"
+                    Radius="10"/>
+            </Image.Effect>
+        </Image>
+        <StackPanel
+            Margin="100,50">
+            <!--System Elements card-->
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <ui:Card
+                    Width="400">
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="16"
+                            Text="{DynamicResource Game}"
+                            FontWeight="Bold"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label
+                                        Content="{Binding Model.GameCapacityGigaBytes}"/>
+                                    <Label 
+                                        Content="GiB/"/>
+                                    <Label
+                                        Content="{Binding Model.DiskCapacityGigaBytes}"/>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Column="1">
+                                <ProgressBar
+                                    Margin="10"
+                                    Value="10"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </ui:Card>
+                <ui:Card
+                    Width="200">
+                    <StackPanel>
+                        <Image
+                            HorizontalAlignment="Left"
+                            Width="48"
+                            Height="48"
+                            Source="/Assets/java.png"/>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Text="Java"/>
+                        <Label>
+                            <Label.Content>
+                                <TextBlock
+                                    Text="Actual installed Java runtime environment (JRE)"
+                                    TextWrapping="Wrap">
+                                    
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <Label Content="{Binding Model.JavaVersion}"/>
+                    </StackPanel>
+                </ui:Card>
+            </StackPanel>
+            <!-- Game Elements Card-->
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <ui:Card
+                    Width="200">
+                    <StackPanel>
+                        <ui:Image
+                            HorizontalAlignment="Left"
+                            Width="48"
+                            Height="48"
+                            Source="/Assets/puzzles.png"/>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold">
+                            <Run Text="Mods"/>
+                        </TextBlock>
+                        <Label>
+                            <Label.Content>
+                                <TextBlock
+                                    TextWrapping="Wrap">
+                                    <Run
+                                        Text="Mods installed in your game directory"/>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        
+                        <Label
+                            Content="{Binding Model.Mods.Count}"/>
+                        <ui:Anchor
+                            HorizontalAlignment="Right"
+                            Content="Manage"/>
+                    </StackPanel>
+                </ui:Card>
+                <ui:Card
+                    Width="200">
+                    <StackPanel>
+                        <ui:Image
+                            HorizontalAlignment="Left"
+                            Height="48"
+                            Width="48"
+                            Source="/Assets/wallpaper.png"></ui:Image>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold">
+                            <Run Text="Textures"/>
+                        </TextBlock>
+                        <Label>
+                            <Label.Content>
+                                <TextBlock
+                                    TextWrapping="Wrap">
+                                    <Run
+                                        Text="Texture-packs installed in your game directory"/>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <Label 
+                            Content="{Binding Model.Textures.Count}"/>
+                        <ui:Anchor
+                            HorizontalAlignment="Right"
+                            Content="Manage"/>
+                    </StackPanel>
+                </ui:Card>
+                <ui:Card
+                    Width="200">
+                    <StackPanel>
+                        <ui:Image
+                            HorizontalAlignment="Left"
+                            Height="48"
+                            Width="48"
+                            Source="/Assets/stars.png"/>
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="Bold">
+                            <Run Text="Shaders"/>
+                            
+                        </TextBlock>
+                        <Label>
+                            <Label.Content>
+                                <TextBlock
+                                    TextWrapping="Wrap">
+                                    <Run
+                                        Text="Shader-packs installed in your game directory"/>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <Label 
+                            Content="{Binding Model.Shaders.Count}"/>
+                        <ui:Anchor
+                            HorizontalAlignment="Right"
+                            Content="Manage"/>
+                    </StackPanel>
+                </ui:Card>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 </Page>

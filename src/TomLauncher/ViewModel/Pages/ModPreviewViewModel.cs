@@ -17,7 +17,7 @@ public class ModPreviewViewModel
     public ModPreviewModel Model { get; set; }
     public ModPreviewViewModel()
     {
-        Model = new();
+        Model = new ModPreviewModel();
         Model.ModVisibility = Visibility.Hidden;
         OpenModCommand = new RelayCommand<object>(Open);
     }
@@ -44,7 +44,7 @@ public class ModPreviewViewModel
             return;
         // Reads JavaArchive, extracts the Manifest files in Application Memory.
         // Makes shorten report -> writes to Dictionary<TLoader, TManifest>
-        Model.Mod = ModificationBuilder.FillJavaArchive(dialog.FileName);
+        Model.Mod = EntityBuilder.FillJavaArchive(dialog.FileName);
         // Expands hidden XAML elements (Modification Card)
         // When Model is ready, there's no fallbacks, and the model will be shown correctly
         // The Star (*) keyword in the Model strings called "похуй-keyword" what means "Any or Nothing"
