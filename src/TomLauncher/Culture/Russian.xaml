@@ -19,6 +19,8 @@
     <v:String x:Key="NvgModPreview">Свойства мода</v:String>
     
     <!-- Editor Page Strings-->
+    <v:String x:Key="EdOpenExistingPackage">Открыть существующее</v:String>
+    <v:String x:Key="EdOpenExistingPackageDescription">Откройте сводку о установленных в игру компонентах</v:String>
     <v:String x:Key="EdTitle">Действия сборки</v:String>
     <v:String x:Key="EdCreatePackage">Создать сборку</v:String>
     <v:String x:Key="EdOpenPackage">Открыть сборку</v:String>

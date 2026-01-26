@@ -69,7 +69,6 @@
                                     Value="{Binding Model.GamePercentage, Mode=OneWay}"/>
                             </StackPanel>
                         </Grid>
-                        
                     </StackPanel>
                 </ui:Card>
             </StackPanel>

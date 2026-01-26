@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -25,6 +26,7 @@ public class EditorViewModel
             PackageOpened = Visibility.Collapsed
         };
         CreatePackageCommand = new RelayCommand<object>(Create);
+        OpenExistingCommand = new RelayCommand<object>(OpenExisting);
         OpenPackageCommand = new RelayCommand<object>(Open);
         ExportCommand = new RelayCommand<object>(Export);
         ExplorerCommand = new RelayCommand<object>(Explorer);
@@ -35,6 +37,7 @@ public class EditorViewModel
     public EditorPageModel Model { get; }
     public ICommand CreatePackageCommand { get; }
     public ICommand OpenPackageCommand { get; }
+    public ICommand OpenExistingCommand { get; }
     public ICommand ExcludeCommand { get; }
     public ICommand IncludeCommand { get; }
     public ICommand ExportCommand { get; }
@@ -54,7 +57,9 @@ public class EditorViewModel
     
     private void Explorer(object? _)
     {
-        Process.Start("explorer", _builder!.Root);
+        Process.Start("explorer", _builder is not null 
+            ? _builder!.Root 
+            : App.GameLocation);
     }
     
     private void Create(object? _)
@@ -74,6 +79,28 @@ public class EditorViewModel
         _builder.Write(Model.Package);
     }
 
+    private void OpenExisting(object? _)
+    {
+        Model.IsExportEnabled = false;
+        Model.Package = new("Minecraft")
+        {
+            Mods = new(),
+            Textures = new(),
+            Shaders = new(),
+            Loader = new LoaderData(LoaderType.Unknown, "0.0.0.0")
+        };
+        foreach (var item in Directory.EnumerateFiles(App.GameLocation +  "\\mods"))
+            Model.Package.Mods.Add(EntityBuilder.FillJavaArchive(item));
+        
+        foreach (var texture in Directory.EnumerateFiles(App.GameLocation + "\\resourcepacks"))
+            Model.Package.Textures.Add(EntityBuilder.FillResource(texture));
+        
+        foreach (var shaders in Directory.EnumerateFiles(App.GameLocation + "\\shaderpacks"))
+            Model.Package.Shaders.Add(EntityBuilder.FillShaders(shaders));
+        
+        Model.PackageOpened = Visibility.Visible;
+    }
+    
     private void Open(object? _)
     {
         var dialog = new OpenFolderDialog
@@ -113,7 +140,7 @@ public class EditorViewModel
         foreach (var resource in Directory.EnumerateFiles(_builder.ResourcePacks))
         {
             var model = _builder.GetResource(resource);
-            Model.Package.Resources.Add(model);
+            Model.Package.Textures.Add(model);
         }
         // Scan nested shaders
         foreach (var shaders in Directory.EnumerateFiles(_builder.ShaderPacks).Where(t => t.Contains(".zip")))
@@ -150,9 +177,9 @@ public class EditorViewModel
                     }
                     break;
                 case PackageBuilder.ArtifactKind.Resource:
-                    if (!Model.Package!.Resources.Select(t => t.File.Name).Contains(Path.GetFileName(item)))
+                    if (!Model.Package!.Textures.Select(t => t.File.Name).Contains(Path.GetFileName(item)))
                     {
-                        Model.Package?.Resources.Add(_builder?.GetResource(item)!);
+                        Model.Package?.Textures.Add(_builder?.GetResource(item)!);
                         _builder?.Include(item, kind);
                     }
                     break;
@@ -177,7 +204,7 @@ public class EditorViewModel
                 break;
             case TextureData t:
                 _builder?.Exclude($"{_builder.ResourcePacks}\\{t.File.Name}");
-                Model.Package?.Resources.Remove(t);
+                Model.Package?.Textures.Remove(t);
                 break;
             case ShadersData s:
                 _builder?.Exclude($"{_builder.ShaderPacks}\\{s.File.Name}");

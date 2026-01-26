@@ -18,6 +18,8 @@
     <v:String x:Key="NvgModPreview">Modification Preview</v:String>
     
     <!-- Editor Page Strings-->
+    <v:String x:Key="EdOpenExistingPackage">Open existing</v:String>
+    <v:String x:Key="EdOpenExistingPackageDescription">Open mod-pack which already installed in game</v:String>
     <v:String x:Key="EdTitle">Package Actions</v:String>
     <v:String x:Key="EdCreatePackage">Create Package</v:String>
     <v:String x:Key="EdOpenPackage">Open Package</v:String>

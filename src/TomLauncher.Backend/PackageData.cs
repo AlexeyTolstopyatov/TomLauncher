@@ -54,7 +54,7 @@ public class PackageData(string name)
     /// Main collection of resources which appends to the game
     /// and will be placed in $Name$/resourcepacks directory
     /// </summary>
-    public ObservableCollection<TextureData> Resources
+    public ObservableCollection<TextureData> Textures
     {
         get; 
         set;

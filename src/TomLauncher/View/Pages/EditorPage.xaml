@@ -54,8 +54,25 @@
             </ui:CardControl.Content>
         </ui:CardControl>
         <ui:CardControl
+            Icon="{ui:SymbolIcon ArrowDown16}">
+            <ui:CardControl.Header>
+               <StackPanel>
+                   <TextBlock 
+                       Text="{DynamicResource EdOpenExistingPackage}"/>
+                   <Label
+                       Content="{DynamicResource EdOpenExistingPackageDescription}"/>
+               </StackPanel>
+            </ui:CardControl.Header>
+            
+            <ui:Button 
+                Width="100"
+                Content="{DynamicResource Open}"
+                Appearance="Success"
+                Command="{Binding OpenExistingCommand}"/>
+        </ui:CardControl>
+        <ui:CardControl
             Visibility="{Binding Model.PackageOpened}"
-            Icon="{ui:SymbolIcon ArrowExportLtr16}">
+            Icon="{ui:ImageIcon /Assets/Grass.png}">
             <ui:CardControl.Header>
                 <StackPanel>
                     <TextBlock Text="{DynamicResource EdExport}"/>
@@ -82,9 +99,7 @@
             </ui:CardControl.Header>
             <ui:Button
                 Command="{Binding ExplorerCommand}"
-                Content="{DynamicResource Explorer}">
-                
-            </ui:Button>
+                Content="{DynamicResource Explorer}"/>
         </ui:CardControl>
         <!--Changing visibility depending on opened package-->
         <Label
@@ -92,7 +107,7 @@
             Margin="0,10,0,10"
             Content="{Binding Model.Package.Name}"/>
         <ui:CardExpander
-            Icon="{ui:SymbolIcon Star16}"
+            Icon="{ui:ImageIcon /Assets/Grass.png}"
             IsExpanded="True"
             Visibility="{Binding Model.PackageOpened}">
             <ui:CardExpander.Header>
@@ -181,7 +196,9 @@
                                     Icon="{ui:SymbolIcon PuzzlePiece16}">
                                     <ui:CardControl.Header>
                                         <StackPanel>
-                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock
+                                                Text="{Binding Title}">
+                                            </TextBlock>
                                             <Label Content="{Binding File.Name}"/>
                                         </StackPanel>
                                     </ui:CardControl.Header>
@@ -189,14 +206,16 @@
                                         Icon="{ui:SymbolIcon Delete16}"
                                         Content="{DynamicResource Delete}"
                                         Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                        IsEnabled="{Binding DataContext.Model.IsExportEnabled, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
                                         CommandParameter="{Binding}">
                                     </ui:Button>
+                                    
                                 </ui:CardControl>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                     <ItemsControl
-                        ItemsSource="{Binding Model.Package.Resources}">
+                        ItemsSource="{Binding Model.Package.Textures}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <ui:CardControl
@@ -213,6 +232,7 @@
                                         Icon="{ui:SymbolIcon Delete16}"
                                         CommandParameter="{Binding}"
                                         Content="{DynamicResource Delete}"
+                                        IsEnabled="{Binding DataContext.Model.IsExportEnabled, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
                                         Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                                 </ui:CardControl>
                             </DataTemplate>
@@ -234,6 +254,7 @@
                                         Icon="{ui:SymbolIcon Delete16}"
                                         CommandParameter="{Binding }"
                                         Content="{DynamicResource Delete}"
+                                        IsEnabled="{Binding  DataContext.Model.IsExportEnabled, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                         Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                                 </ui:CardControl>
                             </DataTemplate>
