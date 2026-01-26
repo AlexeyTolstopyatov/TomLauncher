@@ -35,19 +35,15 @@
                 <ui:NavigationViewItem
                     TargetPageType="{x:Type pages:PreviewPage}"
                     Icon="{ui:SymbolIcon Box16}"
-                    Content="{DynamicResource NvgGamePreview}">
-                </ui:NavigationViewItem>
+                    Content="{DynamicResource NvgGamePreview}"/>
                 <ui:NavigationViewItem
                     Content="{DynamicResource NvgPackEditor}"
                     Icon="{ui:SymbolIcon BoxEdit20}"
-                    TargetPageType="{x:Type pages:EditorPage}">
-                </ui:NavigationViewItem>
+                    TargetPageType="{x:Type pages:EditorPage}"/>
                 <ui:NavigationViewItem
                     Content="{DynamicResource NvgModPreview}"
                     TargetPageType="{x:Type pages:ModPreviewPage}"
-                    Icon="{ui:SymbolIcon PuzzlePiece16}">
-                    
-                </ui:NavigationViewItem>
+                    Icon="{ui:SymbolIcon PuzzlePiece16}"/>
             </ui:NavigationView.MenuItems>
             
             <ui:NavigationView.FooterMenuItems>

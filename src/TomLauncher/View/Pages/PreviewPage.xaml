@@ -32,13 +32,15 @@
             </Image.Effect>
         </Image>
         <StackPanel
-            Margin="100,50">
+            Margin="10,50, 10,0">
             <!--System Elements card-->
             <StackPanel
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <ui:Card
-                    Width="400">
+                    VerticalAlignment="Stretch"
+                    Width="800"
+                    Height="100">
                     <StackPanel>
                         <TextBlock
                             FontSize="16"
@@ -52,23 +54,32 @@
                             <StackPanel>
                                 <WrapPanel>
                                     <Label
-                                        Content="{Binding Model.GameCapacityGigaBytes}"/>
+                                        Content="{Binding Model.GameCapacityGigaBytes, FallbackValue=0}"/>
                                     <Label 
                                         Content="GiB/"/>
                                     <Label
-                                        Content="{Binding Model.DiskCapacityGigaBytes}"/>
+                                        Content="{Binding 
+                                        Path=Model.DiskCapacityGigaBytes, FallbackValue=1}"/>
                                 </WrapPanel>
                             </StackPanel>
                             <StackPanel
                                 Grid.Column="1">
                                 <ProgressBar
                                     Margin="10"
-                                    Value="10"/>
+                                    Value="{Binding Model.GamePercentage, Mode=OneWay}"/>
                             </StackPanel>
                         </Grid>
+                        
                     </StackPanel>
                 </ui:Card>
+            </StackPanel>
+            <!-- Game Elements Card-->
+            <StackPanel
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
                 <ui:Card
+                    VerticalAlignment="Stretch"
+                    Height="200"
                     Width="200">
                     <StackPanel>
                         <Image
@@ -83,21 +94,22 @@
                         <Label>
                             <Label.Content>
                                 <TextBlock
-                                    Text="Actual installed Java runtime environment (JRE)"
                                     TextWrapping="Wrap">
-                                    
+                                    <Run 
+                                        Text="{DynamicResource PrwJavaText}"/>
+                                    <LineBreak/>
                                 </TextBlock>
                             </Label.Content>
                         </Label>
-                        <Label Content="{Binding Model.JavaVersion}"/>
+                        
+                        <Button
+                            HorizontalAlignment="Right"
+                            Content="{Binding Model.JavaVersion, FallbackValue=?}"/>
                     </StackPanel>
                 </ui:Card>
-            </StackPanel>
-            <!-- Game Elements Card-->
-            <StackPanel
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
                 <ui:Card
+                    VerticalAlignment="Stretch"
+                    Height="200"
                     Width="200">
                     <StackPanel>
                         <ui:Image
@@ -108,14 +120,14 @@
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold">
-                            <Run Text="Mods"/>
+                            <Run Text="{DynamicResource Mods}"/>
                         </TextBlock>
                         <Label>
                             <Label.Content>
                                 <TextBlock
                                     TextWrapping="Wrap">
                                     <Run
-                                        Text="Mods installed in your game directory"/>
+                                        Text="{DynamicResource PrwModsText}"/>
                                 </TextBlock>
                             </Label.Content>
                         </Label>
@@ -124,11 +136,13 @@
                             Content="{Binding Model.Mods.Count}"/>
                         <ui:Anchor
                             HorizontalAlignment="Right"
-                            Content="Manage"/>
+                            Content="{DynamicResource Open}"/>
                     </StackPanel>
                 </ui:Card>
                 <ui:Card
-                    Width="200">
+                    VerticalAlignment="Stretch"
+                    Width="200"
+                    Height="200">
                     <StackPanel>
                         <ui:Image
                             HorizontalAlignment="Left"
@@ -138,14 +152,14 @@
                         <TextBlock
                             FontSize="16"
                             FontWeight="Bold">
-                            <Run Text="Textures"/>
+                            <Run Text="{DynamicResource Textures}"/>
                         </TextBlock>
                         <Label>
                             <Label.Content>
                                 <TextBlock
                                     TextWrapping="Wrap">
                                     <Run
-                                        Text="Texture-packs installed in your game directory"/>
+                                        Text="{DynamicResource PrwTextureText}"/>
                                 </TextBlock>
                             </Label.Content>
                         </Label>
@@ -153,10 +167,12 @@
                             Content="{Binding Model.Textures.Count}"/>
                         <ui:Anchor
                             HorizontalAlignment="Right"
-                            Content="Manage"/>
+                            Content="{DynamicResource Open}"/>
                     </StackPanel>
                 </ui:Card>
                 <ui:Card
+                    VerticalAlignment="Stretch"
+                    Height="200"
                     Width="200">
                     <StackPanel>
                         <ui:Image
@@ -165,17 +181,16 @@
                             Width="48"
                             Source="/Assets/stars.png"/>
                         <TextBlock
+                            Text="{DynamicResource Shaders}"
                             FontSize="16"
                             FontWeight="Bold">
-                            <Run Text="Shaders"/>
-                            
                         </TextBlock>
                         <Label>
                             <Label.Content>
                                 <TextBlock
                                     TextWrapping="Wrap">
                                     <Run
-                                        Text="Shader-packs installed in your game directory"/>
+                                        Text="{DynamicResource PrwShadersText}"/>
                                 </TextBlock>
                             </Label.Content>
                         </Label>
@@ -183,10 +198,11 @@
                             Content="{Binding Model.Shaders.Count}"/>
                         <ui:Anchor
                             HorizontalAlignment="Right"
-                            Content="Manage"/>
+                            Content="{DynamicResource Open}"/>
                     </StackPanel>
                 </ui:Card>
             </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Page>

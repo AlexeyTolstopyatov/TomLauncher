@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
+using SearchOption = Microsoft.VisualBasic.FileIO.SearchOption;
 
 namespace TomLauncher;
 
@@ -20,6 +21,11 @@ public partial class App : Application
     /// </summary>
     public static string? JavaVersion { get; set; } = "?";
     /// <summary>
+    /// This Tuple contains filesystem info and fills once at the
+    /// application startup. That's why it contains here 
+    /// </summary>
+    public static (double Size, double GameSize) Disk { get; private set; }
+    /// <summary>
     /// Will be called when application tries to init WPF services
     /// Application CMD arguments will be caught here if they're necessary.
     /// </summary>
@@ -34,7 +40,7 @@ public partial class App : Application
         // The FirstWindow shows once when Settings file is missing
         // Startup language parameter defines at once depending on System CultureInfo
         // If Culture index same with Russian -> Default language will be russian and
-        // Defaults of Settings TOML will be index of russian.
+        // Defaults of Settings TOML will be russian dictionary ordinal.
         if (!File.Exists(settings))
         {
             // Startup logic changes -> new FirstWindow(void)
@@ -68,6 +74,7 @@ public partial class App : Application
         }
         // Initialize WPF services and run prepared application instance
         JavaVersion = GetJavaInstallationPath();
+        Disk = GetDiskCapacity();
         base.OnStartup(e);
     }
     /// <summary>
@@ -102,12 +109,47 @@ public partial class App : Application
         var currentVersion = jreKey?.GetValue("CurrentVersion")?.ToString() ?? string.Empty;
         
         if (!string.IsNullOrEmpty(currentVersion)) 
-            return currentVersion;
+            return currentVersion + " (JRE)";
         
         using var jdkKey = Registry.LocalMachine.OpenSubKey(jdk);
-        currentVersion = jdkKey?.GetValue("CurrentVersion")?.ToString() ?? "?";
+        currentVersion = jdkKey?.GetValue("CurrentVersion")?.ToString();
+        // If current version is null -> send fallback value
+        // instead of empty " (JDK)" string. 
+        if (currentVersion is null)
+            currentVersion = "?";
+        else
+            currentVersion += " (JDK)";
         // Already prepared string with Java RE or DK components version
         // Will be shown in PreviewPage for quick report to user.
         return currentVersion;
+    }
+
+    private static (double disk, double game) GetDiskCapacity()
+    {
+        // Root field in FileSystemInfo typed members
+        // returns the Drive path where FileSystemInfo entry located.
+        // Then gigabytes fraction will be computed and returned.
+        var diskSize = Task.Run(double () =>
+        {
+            var targetDrive = new DirectoryInfo(GameLocation).Root;
+            var drive = new DriveInfo(targetDrive.FullName);
+            
+            return Math.Round((double)drive.TotalSize / (1024 * 1024 * 1024), 2);
+        });
+        // Run another task to compute game directory.
+        // Size shows in gigabytes then I want use f64 typed field
+        // and run this task at once.
+        var gameSize = Task.Run(double () =>
+        {
+            var gameLocation = new DirectoryInfo(GameLocation);
+            var size = gameLocation
+                .EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories)
+                .Sum(f => f.Length);
+            
+            var result = Math.Round((double)size / (1024 * 1024 * 1024), 2);
+            return result;
+        });
+        
+        return (diskSize.Result, gameSize.Result);
     }
 }

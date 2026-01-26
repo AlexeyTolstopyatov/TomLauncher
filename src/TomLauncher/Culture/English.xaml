@@ -6,6 +6,12 @@
     <v:String x:Key="WndMain">TomLauncher</v:String>
     <v:String x:Key="WndNewPack">Create Modpack</v:String>
     
+    <!--Preview Page-->
+    <v:String x:Key="PrwModsText">Mods installed in your game directory</v:String>
+    <v:String x:Key="PrwTextureText">Texture-packs installed in your game directory</v:String>
+    <v:String x:Key="PrwShadersText">Shader-packs installed in your game directory</v:String>
+    <v:String x:Key="PrwJavaText">Registered Java components at this PC</v:String>
+    <v:String x:Key="PrwGiB">GiB</v:String>
     <!--Navigation Tabs-->
     <v:String x:Key="NvgGamePreview">Game Directory</v:String>
     <v:String x:Key="NvgPackEditor">Package Editor</v:String>
@@ -40,6 +46,9 @@
     <v:String x:Key="Browse">Browse</v:String>
     <v:String x:Key="Game">Minecraft</v:String>
     <v:String x:Key="Version">Version</v:String>
+    <v:String x:Key="Mods">Mods</v:String>
+    <v:String x:Key="Textures">Textures</v:String>
+    <v:String x:Key="Shaders">Shaders</v:String>
     <v:String x:Key="Restart">Restart</v:String>
     <v:String x:Key="Loader">Expected Loader</v:String>
     <v:String x:Key="Clear">Clear</v:String>

@@ -6,6 +6,13 @@
     <v:String x:Key="WndMain">TomLauncher</v:String>
     <v:String x:Key="WndNewPack">Создать сборку</v:String>
     
+    <!--Preview Page-->
+    <v:String x:Key="PrwModsText">Моды установленные в папке игры</v:String>
+    <v:String x:Key="PrwTextureText">Установленные пакеты тестур в папке игры</v:String>
+    <v:String x:Key="PrwShadersText">Шейдеры установленные в папке игры</v:String>
+    <v:String x:Key="PrwJavaText">Зарегистрированная Java на этом ПК</v:String>
+    <v:String x:Key="PrwGiB">ГБ</v:String>
+
     <!--Navigation Tabs-->
     <v:String x:Key="NvgGamePreview">Папка игры</v:String>
     <v:String x:Key="NvgPackEditor">Редактор сборки</v:String>
@@ -41,6 +48,9 @@
     <v:String x:Key="Game">Minecraft</v:String>
     <v:String x:Key="Version">Версия</v:String>
     <v:String x:Key="Apply">Применить</v:String>
+    <v:String x:Key="Mods">Моды</v:String>
+    <v:String x:Key="Textures">Текстуры</v:String>
+    <v:String x:Key="Shaders">Шейдеры</v:String>
     <v:String x:Key="Loader">Ожидаемый загрузчик</v:String>
     <v:String x:Key="Clear">Очистить</v:String>
     <v:String x:Key="Cancel">Отмена</v:String>

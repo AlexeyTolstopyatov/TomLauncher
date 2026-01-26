@@ -18,7 +18,6 @@ public class EditorPageModel : NotifyPropertyChanged
         get => _packageData; 
         set => SetField(ref _packageData, value);
     }
-
     /// <summary>
     /// Sets Visible if PackageData model initialized
     /// </summary>
