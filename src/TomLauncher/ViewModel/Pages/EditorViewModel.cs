@@ -51,6 +51,15 @@ public class EditorViewModel
             Console.WriteLine("Missing .minecraft catalog");
             return;
         }
+
+        foreach (var mod in Directory.EnumerateFiles(_builder!.Mods))
+            File.Copy(mod, App.GameLocation + $"\\mods\\{Path.GetFileName(mod)}", true);
+        
+        foreach (var texture in Directory.EnumerateFiles(_builder!.ResourcePacks))
+            File.Copy(texture, App.GameLocation + $"\\resourcepacks\\{Path.GetFileName(texture)}", true);
+        
+        foreach (var shaders in Directory.EnumerateFiles(_builder!.ShaderPacks))
+            File.Copy(shaders, App.GameLocation + $"\\shaderpacks\\{Path.GetFileName(shaders)}", true);
         
         Model.IsExportEnabled = false;
     }

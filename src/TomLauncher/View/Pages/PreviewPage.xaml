@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TomLauncher.ViewModel.Pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
-      d:DesignWidth="800"
+      d:DesignWidth="900"
       d:DesignHeight="450"
       Title="PreviewPage">
     <Page.DataContext>
@@ -134,6 +134,8 @@
                         <Label
                             Content="{Binding Model.Mods.Count}"/>
                         <ui:Anchor
+                            Command="{Binding OpenCommand}"
+                            CommandParameter="\mods"
                             HorizontalAlignment="Right"
                             Content="{DynamicResource Open}"/>
                     </StackPanel>
@@ -166,6 +168,8 @@
                             Content="{Binding Model.Textures.Count}"/>
                         <ui:Anchor
                             HorizontalAlignment="Right"
+                            Command="{Binding OpenCommand}"
+                            CommandParameter="\resourcepacks"
                             Content="{DynamicResource Open}"/>
                     </StackPanel>
                 </ui:Card>
@@ -196,6 +200,8 @@
                         <Label 
                             Content="{Binding Model.Shaders.Count}"/>
                         <ui:Anchor
+                            Command="{Binding OpenCommand}"
+                            CommandParameter="\shaderpacks"
                             HorizontalAlignment="Right"
                             Content="{DynamicResource Open}"/>
                     </StackPanel>

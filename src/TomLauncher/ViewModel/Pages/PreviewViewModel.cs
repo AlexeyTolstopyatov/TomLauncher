@@ -1,11 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TomLauncher.Backend;
 using TomLauncher.Backend.Builder;
 using TomLauncher.Model;
 using Wpf.Ui.Appearance;
+using Wpf.Ui.Input;
 
 namespace TomLauncher.ViewModel.Pages;
 
@@ -13,7 +16,7 @@ public class PreviewViewModel
 {
     public PreviewModel Model { get; set; }
     public ImageSource BackgroundSource { get; set; }
-    
+    public ICommand OpenCommand { get; }
     public PreviewViewModel()
     {
         Model = new PreviewModel
@@ -39,5 +42,12 @@ public class PreviewViewModel
             BackgroundSource = new BitmapImage(new Uri("/Assets/dark.png", UriKind.Relative));
         else
             BackgroundSource = new BitmapImage(new Uri("/Assets/light.png", UriKind.Relative));
+
+        OpenCommand = new RelayCommand<string>(Open);
+    }
+
+    private void Open(string? path)
+    {
+        Process.Start("explorer", App.GameLocation + path);
     }
 }
