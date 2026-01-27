@@ -209,7 +209,13 @@
                                         IsEnabled="{Binding DataContext.Model.IsExportEnabled, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
                                         CommandParameter="{Binding}">
                                     </ui:Button>
-                                    
+                                    <!--Metadata Window binding-->
+                                    <ui:CardControl.InputBindings>
+                                        <MouseBinding
+                                            CommandParameter="{Binding Manifests}"
+                                            Command="{Binding DataContext.MetadataCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                            MouseAction="LeftDoubleClick"/>
+                                    </ui:CardControl.InputBindings>
                                 </ui:CardControl>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

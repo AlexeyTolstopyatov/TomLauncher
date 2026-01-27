@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using TomLauncher.Backend;
 using TomLauncher.Backend.Builder;
+using TomLauncher.Backend.Reader;
 using TomLauncher.Model;
 using TomLauncher.View.Windows;
 using TomLauncher.ViewModel.Windows;
@@ -32,6 +33,7 @@ public class EditorViewModel
         ExplorerCommand = new RelayCommand<object>(Explorer);
         IncludeCommand = new RelayCommand<string>(Include);
         ExcludeCommand = new RelayCommand<object>(Exclude);
+        MetadataCommand = new RelayCommand<object>(Metadata);
     }
 
     public EditorPageModel Model { get; }
@@ -42,7 +44,7 @@ public class EditorViewModel
     public ICommand IncludeCommand { get; }
     public ICommand ExportCommand { get; }
     public ICommand ExplorerCommand { get; }
-
+    public ICommand MetadataCommand { get; }
     private void Export(object? _)
     {
         var minecraft = new DirectoryInfo(App.GameLocation);
@@ -63,7 +65,19 @@ public class EditorViewModel
         
         Model.IsExportEnabled = false;
     }
-    
+
+    private void Metadata(object? manifestsCollection)
+    {
+        if (manifestsCollection is null)
+            return;
+        
+        var collection = (Dictionary<LoaderType, ManifestGenerals>)manifestsCollection;
+        var toolWindow = new MetadataWindow
+        {
+            DataContext = new MetadataViewModel(collection)
+        };
+        toolWindow.Show();
+    }
     private void Explorer(object? _)
     {
         Process.Start("explorer", _builder is not null 

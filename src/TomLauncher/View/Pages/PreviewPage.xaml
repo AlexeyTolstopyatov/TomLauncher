@@ -100,7 +100,6 @@
                                 </TextBlock>
                             </Label.Content>
                         </Label>
-                        
                         <Button
                             HorizontalAlignment="Right"
                             Content="{Binding Model.JavaVersion, FallbackValue=?}"/>

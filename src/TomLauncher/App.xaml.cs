@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
-using SearchOption = Microsoft.VisualBasic.FileIO.SearchOption;
 
 namespace TomLauncher;
 
@@ -71,10 +70,10 @@ public partial class App : Application
             // Don't redirect to FirstWindow. Just continue
             Current.Resources.MergedDictionaries.Add(dictionary);
             GameLocation = lines[1];
+            JavaVersion = GetJavaInstallationPath();
+            Disk = GetDiskCapacity();
         }
         // Initialize WPF services and run prepared application instance
-        JavaVersion = GetJavaInstallationPath();
-        Disk = GetDiskCapacity();
         base.OnStartup(e);
     }
     /// <summary>
