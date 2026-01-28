@@ -7,7 +7,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         SizeToContent="Height"
-        Title="CriticalWindow" Height="Auto" Width="600">
+        Title="{DynamicResource CwHeader}" Height="Auto" Width="600">
     <ui:FluentWindow.DataContext>
         <local:CriticalViewModel/>
     </ui:FluentWindow.DataContext>
@@ -16,7 +16,7 @@
             ShowMinimize="True"
             CanMaximize="False"
             Icon="{ui:SymbolIcon Warning16}"
-            Title="Previous Process Problem"/>
+            Title="{DynamicResource CwHeader}"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>

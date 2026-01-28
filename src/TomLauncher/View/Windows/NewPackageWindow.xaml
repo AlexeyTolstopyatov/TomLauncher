@@ -6,7 +6,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:TomLauncher.ViewModel.Windows"
         mc:Ignorable="d"
-        Title="NewPackageWindow"
+        Title="{DynamicResource NewCardTitle}"
         Width="600" Height="Auto"
         SizeToContent="Height">
     <ui:FluentWindow.DataContext>

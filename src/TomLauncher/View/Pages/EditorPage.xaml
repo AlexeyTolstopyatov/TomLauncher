@@ -258,9 +258,9 @@
                                     </ui:CardControl.Header>
                                     <ui:Button
                                         Icon="{ui:SymbolIcon Delete16}"
-                                        CommandParameter="{Binding }"
                                         Content="{DynamicResource Delete}"
                                         IsEnabled="{Binding  DataContext.Model.IsExportEnabled, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding }"
                                         Command="{Binding DataContext.ExcludeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                                 </ui:CardControl>
                             </DataTemplate>

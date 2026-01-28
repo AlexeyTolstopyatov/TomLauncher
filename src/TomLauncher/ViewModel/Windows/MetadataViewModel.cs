@@ -1,6 +1,5 @@
 ﻿using TomLauncher.Backend;
 using TomLauncher.Backend.Reader;
-using TomLauncher.Model;
 
 namespace TomLauncher.ViewModel.Windows;
 

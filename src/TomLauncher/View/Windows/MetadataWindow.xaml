@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TomLauncher.ViewModel.Windows"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="MetadataWindow"
+        Title="{DynamicResource Properties}"
         SizeToContent="Height"
         Width="450"
         Height="Auto">
@@ -16,7 +16,7 @@
     <StackPanel>
         <ui:TitleBar
             Icon="{ui:SymbolIcon List16}"
-            Title="Metadata"/>
+            Title="{DynamicResource Properties}"/>
         <TabControl 
             ItemsSource="{Binding Manifests}" 
             DisplayMemberPath="Key">

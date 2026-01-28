@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TomLauncher.ViewModel.Windows"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="FirstWindow" 
+        Title="TomLauncher" 
         SizeToContent="Height"
         Height="Auto" Width="600">
     <ui:FluentWindow.DataContext>
