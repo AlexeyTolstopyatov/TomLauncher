@@ -58,7 +58,8 @@
     <v:String x:Key="Apply">Apply</v:String>
     <v:String x:Key="Title">Title</v:String>
     <v:String x:Key="LoaderVersion">Loader Version</v:String>
-    <v:String x:Key="LoaderString">Provider</v:String>
+    <v:String x:Key="Api">Provider</v:String>
+    <v:String x:Key="ApiVersion">API version</v:String>
     <v:String x:Key="GameVersion">Minecraft Version</v:String>
     <v:String x:Key="Delete">Delete</v:String>
     <v:String x:Key="CreatedAt">Creation Time</v:String>

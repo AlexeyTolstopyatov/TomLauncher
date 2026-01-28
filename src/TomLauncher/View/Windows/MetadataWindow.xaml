@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:TomLauncher.ViewModel.Windows"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="MetadataWindow" 
-        Height="450" Width="800">
+        Title="MetadataWindow"
+        SizeToContent="Height"
+        Width="450"
+        Height="Auto">
     <Window.DataContext>
         <local:MetadataViewModel/>
     </Window.DataContext>
@@ -15,34 +17,68 @@
         <ui:TitleBar
             Icon="{ui:SymbolIcon List16}"
             Title="Metadata"/>
-        <TabControl
-            d:ItemsSource="{d:SampleData 10}"
-            ItemsSource="{Binding Manifests}">
-            <TabControl.ItemTemplate>
+        <TabControl 
+            ItemsSource="{Binding Manifests}" 
+            DisplayMemberPath="Key">
+            <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <TabItem
-                        Header="{Binding Key}">
-                        <ui:Card
-                            Padding="20">
-                            <Grid>
+                    <ui:Card>
+                        <StackPanel>
+                            <TextBlock
+                                FontSize="24"
+                                Text="{Binding Value.Title}"/>
+                            <TextBlock>
+                                <Run Text="{Binding Value.Name}"/>
+                                <Run Text="{Binding Value.Version, StringFormat=({0})}"/>
+                            </TextBlock>
+                            
+                            <Grid
+                                Margin="0,10">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="200"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                
+                            
                                 <StackPanel>
-                                    
+                                    <Label Content="{DynamicResource Game}"/>
+                                    <Label Content="{DynamicResource Loader}"/>
+                                    <Label Content="{DynamicResource LoaderVersion}"></Label>
+                                    <Label Content="{DynamicResource Api}"/>
+                                    <Label Content="{DynamicResource ApiVersion}"/>
+                                    <Label Content=""/>
                                 </StackPanel>
-                                
+                            
                                 <StackPanel
                                     Grid.Column="1">
-                                    
+                                    <Label Content="{Binding Value.MinecraftVersion}"/>
+                                    <Label Content="{Binding Key}"/>
+                                    <Label Content="{Binding Value.LoaderVersion}"/>
+                                    <Label Content="{Binding Value.Api}"/>
+                                    <Label Content="{Binding Value.ApiVersion}"/>
                                 </StackPanel>
                             </Grid>
-                        </ui:Card>
-                    </TabItem>
+                            <ItemsControl
+                                ItemsSource="{Binding Value.Dependencies}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ui:CardExpander
+                                            Icon="{ui:ImageIcon /Assets/puzzle.png}">
+                                            <ui:CardExpander.Header>
+                                                <StackPanel>
+                                                    <TextBlock Text="{DynamicResource DependsOn}"/>
+                                                    <Label Content="{Binding Key}"/>
+                                                </StackPanel>
+                                            </ui:CardExpander.Header>
+                                            <ui:DataGrid
+                                                ItemsSource="{Binding Value}"/>
+                                        </ui:CardExpander>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ui:Card>
                 </DataTemplate>
-            </TabControl.ItemTemplate>
+            </TabControl.ContentTemplate>
         </TabControl>
     </StackPanel>
 </ui:FluentWindow>

@@ -58,7 +58,8 @@
     <v:String x:Key="Cancel">Отмена</v:String>
     <v:String x:Key="Title">Заголовок</v:String>
     <v:String x:Key="LoaderVersion">Версия загрузчика</v:String>
-    <v:String x:Key="LoaderString">Провайдер</v:String>
+    <v:String x:Key="ApiVersion">Версия провайдера</v:String>
+    <v:String x:Key="Api">Провайдер</v:String>
     <v:String x:Key="GameVersion">Версия игры</v:String>
     <v:String x:Key="Delete">Удалить</v:String>
     <v:String x:Key="CreatedAt">Создан</v:String>
