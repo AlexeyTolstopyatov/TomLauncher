@@ -54,12 +54,12 @@
                             <StackPanel>
                                 <WrapPanel>
                                     <Label
-                                        Content="{Binding Model.GameCapacityGigaBytes, FallbackValue=0}"/>
+                                        Content="{Binding Model.GameSpaceGigaBytes, FallbackValue=0}"/>
                                     <Label 
                                         Content="GiB/"/>
                                     <Label
                                         Content="{Binding 
-                                        Path=Model.DiskCapacityGigaBytes, FallbackValue=1}"/>
+                                        Path=Model.DiskFreeSpaceGigaBytes, FallbackValue=1}"/>
                                 </WrapPanel>
                             </StackPanel>
                             <StackPanel
